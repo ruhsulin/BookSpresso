@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BookSpresso</string>
+    <string name="create_account">Create Account</string>
+    <string name="hint_enterfirstname">Enter firts name here...</string>
+    <string name="hint_enterlastname">Enter last name here...</string>
+    <string name="hint_enteremail">Enter email here...</string>
+    <string name="hint_enterpassword">Enter password here...</string>
+    <string name="btn_RegisterNow">Register</string>
+    <string name="or">Or</string>
+    <string name="already_have_an_account_login">Already have an account?</string>
 </resources>
