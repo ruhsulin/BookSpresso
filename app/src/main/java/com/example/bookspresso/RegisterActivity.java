@@ -54,22 +54,22 @@ public class RegisterActivity extends Activity {
                 password = etPassword.getText().toString();
 
                 if (TextUtils.isEmpty(firstname)) {
-                    Toast.makeText(RegisterActivity.this, "Enter first name!", Toast.LENGTH_SHORT).show();
+                    showToast("Enter first name!");
                     return;
                 }
 
                 if (TextUtils.isEmpty(lastname)) {
-                    Toast.makeText(RegisterActivity.this, "Enter last name!", Toast.LENGTH_SHORT).show();
+                    showToast("Enter last name!");
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(RegisterActivity.this, "Enter email!", Toast.LENGTH_SHORT).show();
+                    showToast("Enter email!");
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity.this, "Enter password!", Toast.LENGTH_SHORT).show();
+                    showToast("Enter password!");
                     return;
                 }
 
@@ -81,18 +81,21 @@ public class RegisterActivity extends Activity {
                                 progressBar.setVisibility(View.GONE);
 
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Account Created Successfully!", Toast.LENGTH_LONG).show();
+                                    showToast("Account Created Successfully!");
                                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(RegisterActivity.this, "Account Creation Failed!", Toast.LENGTH_LONG).show();
+                                    showToast("Account Creation Failed!");
                                 }
-
                             }
                         });
             }
         });
+        }
+
+        private void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
     }
 
