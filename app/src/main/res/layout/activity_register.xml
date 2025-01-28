@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".RegisterActivity"
+    >
+
+    <!-- Image -->
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Create Account Text -->
+    <TextView
+        android:id="@+id/tvCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_account"
+        android:textColor="@color/brown_900"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintTop_toBottomOf="@id/image_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Input fields and labels here -->
+    <!-- FirstName -->
+    <EditText
+        android:id="@+id/etFirstname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_enterfirstname"
+        android:textColorHint="@color/hint_color"
+        android:inputType="textPersonName"
+        android:imeOptions="actionNext"
+        app:layout_constraintTop_toBottomOf="@id/tvCreateAccount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.9"
+        android:autofillHints="enter firstname..." />
+
+    <!-- LastName -->
+    <EditText
+        android:id="@+id/etLastName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_enterlastname"
+        android:textColorHint="@color/hint_color"
+        android:inputType="textPersonName"
+        android:imeOptions="actionNext"
+        app:layout_constraintTop_toBottomOf="@id/etFirstname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.9"
+        android:autofillHints="enter lastname..."/>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_enteremail"
+        android:textColorHint="@color/hint_color"
+        android:autofillHints="enter email"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
+        app:layout_constraintTop_toBottomOf="@id/etLastName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.9"
+        />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_enterpassword"
+        android:textColorHint="@color/hint_color"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        app:layout_constraintStart_toStartOf="@id/etEmail"
+        app:layout_constraintEnd_toEndOf="@id/etEmail"
+        app:layout_constraintWidth_percent="0.9"
+        android:importantForAutofill="no" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBottomOf="@id/etPassword"
+        app:layout_constraintBaseline_toTopOf="@id/btnRegister"
+        android:id="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Register Button -->
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_RegisterNow"
+        android:backgroundTint="@color/green_900"
+        android:textColor="@color/app_background"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintStart_toStartOf="@id/etPassword"
+        app:layout_constraintEnd_toEndOf="@id/etPassword" />
+
+    <!-- Social Media Registration -->
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or"
+        app:layout_constraintTop_toBottomOf="@id/btnRegister"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Social Media Icons -->
+    <!-- ... -->
+
+    <!-- Login Redirect -->
+    <TextView
+        android:id="@+id/tvAlreadyHaveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/already_have_an_account_login"
+        android:textColor="@color/green_900"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
