@@ -8,4 +8,7 @@
     <string name="btn_RegisterNow">Register</string>
     <string name="or">Or</string>
     <string name="already_have_an_account_login">Already have an account?</string>
+    <string name="login_account">LogIn</string>
+    <string name="btnLogin">Login</string>
+    <string name="noAccount_RegisterHere">Don\'t have an account? Register here!</string>
 </resources>
