@@ -41,6 +41,14 @@ public class RegisterActivity extends Activity {
         btnRegister = findViewById(R.id.btnRegister);
         tvLoginHere = findViewById(R.id.tvAlreadyHaveAccount);
 
+        tvLoginHere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Register user to Firebase
         btnRegister.setOnClickListener(new View.OnClickListener(){
             @Override
