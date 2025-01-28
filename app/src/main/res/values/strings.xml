@@ -11,4 +11,5 @@
     <string name="login_account">LogIn</string>
     <string name="btnLogin">Login</string>
     <string name="noAccount_RegisterHere">Don\'t have an account? Register here!</string>
+    <string name="btn_Login">Login</string>
 </resources>
