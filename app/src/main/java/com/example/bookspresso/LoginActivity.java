@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,6 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         // Initializing Firebase
         auth = FirebaseAuth.getInstance();
 
+        String savedEmail = ReadSharedPreferences();
+        if (!TextUtils.isEmpty(savedEmail)) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("username", savedEmail);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
         //mapping UI elements
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -84,6 +93,8 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             showToast("Login Successful!");
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class );
+                            WriteSharedPreferences(email);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
                         }
@@ -97,5 +108,18 @@ public class LoginActivity extends AppCompatActivity {
     // showText method
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void WriteSharedPreferences(String strEmail){
+        SharedPreferences sharedPreferences = getSharedPreferences("BookSpresso", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Email", strEmail);
+        editor.apply();
+    }
+
+    private String ReadSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("BookSpresso", MODE_PRIVATE);
+        return sharedPreferences.getString("Email", "");
     }
 }
