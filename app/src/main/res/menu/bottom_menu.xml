@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"
+        android:itemBackground="@android:color/transparent"
+        />
+    <item
+        android:id="@+id/nav_add_book"
+        android:icon="@drawable/ic_add"
+        android:title="Add Book"
+        android:itemBackground="@android:color/transparent"
+        />
+    <item
+        android:id="@+id/nav_goal"
+        android:icon="@drawable/ic_goal"
+        android:title="Goals"
+        android:itemBackground="@android:color/transparent"
+        />
 </menu>
