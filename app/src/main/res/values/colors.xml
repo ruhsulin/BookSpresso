@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
 
     <color name="app_background">#FAF1E4</color>
     <color name="green_900">#435334</color>
@@ -16,4 +18,5 @@
     <color name="brown_800">#422520</color>
 
     <color name="hint_color">#BF555454</color>
+
 </resources>
