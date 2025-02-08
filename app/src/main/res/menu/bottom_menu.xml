@@ -18,10 +18,4 @@
         android:title="Goals"
         android:itemBackground="@android:color/transparent"
         />
-    <item
-        android:id="@+id/action_logout"
-        android:title="Logout"
-        android:icon="@drawable/ic_logout"
-        android:itemBackground="@android:color/transparent"
-         />
 </menu>
