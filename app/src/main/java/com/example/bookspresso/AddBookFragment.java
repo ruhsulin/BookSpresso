@@ -1,5 +1,7 @@
 package com.example.bookspresso;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,7 +43,15 @@ public class AddBookFragment extends Fragment {
         btnAddBook.setOnClickListener(v -> addBookToDatabase());
         return view;
     }
-    private void addBookToDatabase(){
+    private void addBookToDatabase() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String userId = prefs.getString("userId", ""); // Merr ID e përdoruesit të loguar
+
+        if (userId.isEmpty()) {
+            Toast.makeText(requireContext(), "User ID not found!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String title = etTitle.getText().toString().trim();
         String author = etAuthor.getText().toString().trim();
         String genre = etGenre.getText().toString().trim();
@@ -51,10 +61,9 @@ public class AddBookFragment extends Fragment {
         String status = etStatus.getText().toString().trim();
 
         int pageNumber;
-
-        try{
+        try {
             pageNumber = Integer.parseInt(etPageNumber.getText().toString().trim());
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             pageNumber = 0;
         }
 
@@ -67,7 +76,7 @@ public class AddBookFragment extends Fragment {
         String registeredDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         // Insert into database
-        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, status, registeredDate);
+        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, status, registeredDate, userId);
 
         if (success) {
             Toast.makeText(requireContext(), "Book added successfully!", Toast.LENGTH_LONG).show();
@@ -75,7 +84,8 @@ public class AddBookFragment extends Fragment {
         } else {
             Toast.makeText(requireContext(), "Failed to add book", Toast.LENGTH_LONG).show();
         }
-        }
+    }
+
     private void clearFields() {
         etTitle.setText("");
         etAuthor.setText("");
