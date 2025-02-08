@@ -3,10 +3,12 @@ package com.example.bookspresso;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,8 +36,23 @@ public class LoginActivity extends AppCompatActivity {
 
         // Initializing Firebase
         auth = FirebaseAuth.getInstance();
+        //mapping UI elements
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        tvRegisterHere = findViewById(R.id.tvAlreadyHaveAccount);
+        progressBar = findViewById(R.id.progressBar);
 
-        String savedEmail = ReadSharedPreferences();
+        SharedPreferences preferences = getSharedPreferences("BookSpresso", Context.MODE_PRIVATE);
+        String savedEmail = preferences.getString("Email", "");
+
+        if (!TextUtils.isEmpty(savedEmail)) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        savedEmail = ReadSharedPreferences();
         if (!TextUtils.isEmpty(savedEmail)) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("username", savedEmail);
@@ -43,12 +60,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        //mapping UI elements
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        tvRegisterHere = findViewById(R.id.tvAlreadyHaveAccount);
-        progressBar = findViewById(R.id.progressBar);
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
