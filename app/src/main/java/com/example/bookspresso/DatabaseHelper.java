@@ -17,7 +17,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final String Table_Books = "Books";
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "BookSpressoDB", null, 3);
+        super(context, "BookSpressoDB", null, 4);
     }
 
     @Override
@@ -32,22 +32,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "PageNumber integer," +
                 "Description text," +
                 "Status text," +
-                "RegisteredDate text)");
+                "RegisteredDate text," +
+                "UserId Text)");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        // Drop the old table if it exists
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Table_Books);
-        // Recreate the table
-        onCreate(sqLiteDatabase);
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        if (oldVersion < 4) {
+            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN UserId TEXT");
+        }
     }
 
-    public boolean insertBook(String title, String author, String genre, String year, String isbn,
-                              int pageNumber, String description, String status, String registeredDate) {
+    public boolean insertBook(String title,
+                              String author,
+                              String genre,
+                              String year,
+                              String isbn,
+                              int pageNumber,
+                              String description,
+                              String status,
+                              String registeredDate,
+                              String userId) {
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues values = new ContentValues();
+
         values.put("Title", title);
         values.put("Author", author);
         values.put("Genre", genre);
@@ -57,16 +66,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Description", description);
         values.put("Status", status);
         values.put("RegisteredDate", registeredDate);
+        values.put("UserId", userId);
 
         long result = db.insert(Table_Books, null, values);
         db.close();
         return result != -1;
     }
 
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooksForUser(String userId) {
         List<Book> bookList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * From " + Table_Books, null);
+
+        Cursor cursor = db.rawQuery("SELECT * FROM Books WHERE UserId = ?", new String[]{userId});
 
         if(cursor.moveToFirst()){
             do{
@@ -86,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return bookList;
     }
 }

@@ -103,6 +103,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(task.isSuccessful()){
                             showToast("Login Successful!");
+
+                            //Saving userId in SharedPReferences
+                            String userId = auth.getCurrentUser().getUid();
+                            saveUserSession(userId);
+
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class );
                             WriteSharedPreferences(email);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -116,6 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    private void saveUserSession(String userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userId", userId);
+        editor.apply();
+    }
     // showText method
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

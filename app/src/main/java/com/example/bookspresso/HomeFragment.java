@@ -1,5 +1,7 @@
 package com.example.bookspresso;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -61,7 +63,14 @@ public class HomeFragment extends Fragment {
     private class LoadBooksTask extends AsyncTask<Void, Void, List<Book>> {
         @Override
         protected List<Book> doInBackground(Void... voids) {
-            return databaseHelper.getAllBooks();
+            SharedPreferences prefs = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+
+            String userId = prefs.getString("userId", "");
+            if (userId.isEmpty()) {
+                return new ArrayList<>(); // Kthe listë bosh nëse nuk ka userId
+            }
+
+            return databaseHelper.getAllBooksForUser(userId);
         }
 
         @Override
