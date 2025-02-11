@@ -100,4 +100,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return bookList;
     }
+
+    public boolean updateBook(Book book) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Title", book.getTitle());
+        values.put("Author", book.getAuthor());
+        values.put("Genre", book.getGenre());
+        values.put("PublishedYear", book.getPublishedYear());
+        values.put("ISBN", book.getISBN());
+        values.put("PageNumber", book.getPageNumber());
+        values.put("Description", book.getDescription());
+        values.put("Status", book.getStatus());
+
+        int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(book.getId())});
+        db.close();
+
+        return rowsAffected > 0;
+    }
 }
