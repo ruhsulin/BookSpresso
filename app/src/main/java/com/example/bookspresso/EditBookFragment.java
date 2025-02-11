@@ -1,7 +1,5 @@
 package com.example.bookspresso;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,11 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditBookFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class EditBookFragment extends Fragment {
     private EditText etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription, etStatus;
     private Button btnUpdateBook;
@@ -31,7 +24,9 @@ public class EditBookFragment extends Fragment {
 
     public static EditBookFragment newInstance(Book book) {
         EditBookFragment fragment = new EditBookFragment();
+
         Bundle args = new Bundle();
+
         args.putInt("id", book.getId());
         args.putString("title", book.getTitle());
         args.putString("author", book.getAuthor());
@@ -42,6 +37,7 @@ public class EditBookFragment extends Fragment {
         args.putString("description", book.getDescription());
         args.putString("status", book.getStatus());
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -61,7 +57,6 @@ public class EditBookFragment extends Fragment {
         etDescription = view.findViewById(R.id.etDescription);
         etStatus = view.findViewById(R.id.etStatus);
         btnUpdateBook = view.findViewById(R.id.btnUpdateBook);
-
 
         // Retrieve book data from bundle
         if (getArguments() != null) {
@@ -90,10 +85,7 @@ public class EditBookFragment extends Fragment {
 
         btnUpdateBook.setOnClickListener(v -> updateBook());
 
-
         return view;
-
-
     }
 
     private void updateBook() {
@@ -134,7 +126,5 @@ public class EditBookFragment extends Fragment {
         } else {
             Toast.makeText(requireContext(), "Failed to update book", Toast.LENGTH_LONG).show();
         }
-
     }
-
 }
