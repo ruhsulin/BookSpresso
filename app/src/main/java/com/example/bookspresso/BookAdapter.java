@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -23,6 +25,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         return new BookViewHolder(view);
     }
 
+    /**
+     * Binds book data to the RecyclerView item and sets click listener.
+     * When a book is clicked, it opens EditBookFragment for editing.
+     */
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         Book book = bookList.get(position);
@@ -30,6 +36,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.tvAuthor.setText("Author: " + book.getAuthor());
         holder.tvGenre.setText("Genre: " + book.getGenre());
         holder.tvStatus.setText("Status: " + book.getStatus());
+
+        // Handles book click to open the clicked book
+        holder.itemView.setOnClickListener(v -> {
+            FragmentTransaction transaction = ((AppCompatActivity) v.getContext())
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+            transaction.replace(R.id.fragment_container, EditBookFragment.newInstance(book));
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
     }
 
     @Override
