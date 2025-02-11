@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
 
         //Load books from DB
-        new LoadBooksFromDB().execute();
+        new LoadBooksFromDBTask().execute();
 
         SearchView searchView = view.findViewById(R.id.searchView);
 
@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private class LoadBooksFromDB extends AsyncTask<Void, Void, List<Book>> {
+    private class LoadBooksFromDBTask extends AsyncTask<Void, Void, List<Book>> {
         @Override
         protected List<Book> doInBackground(Void... voids) {
             SharedPreferences prefs = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
