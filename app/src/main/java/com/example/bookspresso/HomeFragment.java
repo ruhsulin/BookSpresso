@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +34,11 @@ public class HomeFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
 
         //Load books from DB
-        new LoadBooksTask().execute();
+        new LoadBooksFromDB().execute();
 
         SearchView searchView = view.findViewById(R.id.searchView);
+
+        // Search books.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -56,18 +57,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
-    private class LoadBooksTask extends AsyncTask<Void, Void, List<Book>> {
+    private class LoadBooksFromDB extends AsyncTask<Void, Void, List<Book>> {
         @Override
         protected List<Book> doInBackground(Void... voids) {
             SharedPreferences prefs = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
             String userId = prefs.getString("userId", "");
             if (userId.isEmpty()) {
-                return new ArrayList<>(); // Kthe listë bosh nëse nuk ka userId
+                return new ArrayList<>();
             }
 
             return databaseHelper.getAllBooksForUser(userId);
@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
     // Filter books in Search bar
     private void filterBooks(String query) {
         if (allBooks == null) {
-            allBooks = new ArrayList<>(); // Initialize if null
+            allBooks = new ArrayList<>();
         }
 
         if (TextUtils.isEmpty(query)) {
@@ -107,5 +107,4 @@ public class HomeFragment extends Fragment {
         }
         recyclerView.setAdapter(bookAdapter);
     }
-
 }
