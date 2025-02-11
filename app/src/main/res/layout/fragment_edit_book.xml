@@ -1,14 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditBookFragment">
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title" />
+
+        <EditText
+            android:id="@+id/etAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Author" />
+
+        <EditText
+            android:id="@+id/etGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Genre" />
+
+        <EditText
+            android:id="@+id/etPublishedYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Published Year" />
+
+        <EditText
+            android:id="@+id/etIsbn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ISBN" />
+
+        <EditText
+            android:id="@+id/etPageNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Page Number" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+        <EditText
+            android:id="@+id/etStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Status" />
+
+        <Button
+            android:id="@+id/btnUpdateBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Book" />
+    </LinearLayout>
+</ScrollView>
