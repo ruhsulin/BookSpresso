@@ -1,10 +1,11 @@
 <resources>
+    <!-- Register and Login -->
     <string name="app_name">BookSpresso</string>
     <string name="create_account">Create Account</string>
-    <string name="hint_enterfirstname">Enter firts name here...</string>
-    <string name="hint_enterlastname">Enter last name here...</string>
-    <string name="hint_enteremail">Enter email here...</string>
-    <string name="hint_enterpassword">Enter password here...</string>
+    <string name="hint_enterfirstname">Enter first name here…</string>
+    <string name="hint_enterlastname">Enter last name here…</string>
+    <string name="hint_enteremail">Enter email here…</string>
+    <string name="hint_enterpassword">Enter password here…</string>
     <string name="btn_RegisterNow">Register</string>
     <string name="or">Or</string>
     <string name="already_have_an_account_login">Already have an account?</string>
@@ -12,6 +13,14 @@
     <string name="btnLogin">Login</string>
     <string name="noAccount_RegisterHere">Don\'t have an account? Register here!</string>
     <string name="btn_Login">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Book Data -->
+    <string name="title_format">Title: %s</string>
+    <string name="author_format">Author: %s</string>
+    <string name="genre_format">Genre: %s</string>
+    <string name="published_year_format">Published Year: %d</string>
+    <string name="isbn_format">ISBN: %s</string>
+    <string name="pages_format">Pages: %d</string>
+    <string name="description_format">Description: %s</string>
+    <string name="status_format">Status: %s</string>
 </resources>
