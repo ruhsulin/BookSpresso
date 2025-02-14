@@ -1,6 +1,7 @@
 package com.example.bookspresso;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,15 @@ public class BookDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
+
+        // Setup Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("BookSpresso"); // Set title
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable back button
+        }
 
         // declaring and mapping variables with UI
         TextView tvTitle = findViewById(R.id.tvTitle);
