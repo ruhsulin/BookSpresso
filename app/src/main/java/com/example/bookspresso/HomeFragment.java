@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(List<Book> books) {
             if (books != null) {
                 allBooks = books; // Save all books for filtering
-                bookAdapter = new BookAdapter(books);
+                bookAdapter = new BookAdapter(getContext(),books);
                 recyclerView.setAdapter(bookAdapter);
             } else {
                 allBooks = new ArrayList<>(); // Initialize to avoid NullPointerException
@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
 
         if (TextUtils.isEmpty(query)) {
             // Show all books if query is empty
-            bookAdapter = new BookAdapter(allBooks);
+            bookAdapter = new BookAdapter(getContext(),allBooks);
         } else {
             // Filter books by title or author
             List<Book> filteredBooks = new ArrayList<>();
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
                     filteredBooks.add(book);
                 }
             }
-            bookAdapter = new BookAdapter(filteredBooks);
+            bookAdapter = new BookAdapter(getContext(), filteredBooks);
         }
         recyclerView.setAdapter(bookAdapter);
     }

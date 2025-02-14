@@ -1,19 +1,21 @@
 package com.example.bookspresso;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
-    private List<Book> bookList;
+    private final List<Book> bookList;
+    private final Context context;
 
-    public BookAdapter(List<Book> bookList) {
+    public BookAdapter(Context context, List<Book> bookList) {
+        this.context = context;
         this.bookList = bookList;
     }
 
@@ -27,24 +29,21 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     /**
      * Binds book data to the RecyclerView item and sets click listener.
-     * When a book is clicked, it opens EditBookFragment for editing.
+     * When a book is clicked opens BookDetails activity.
      */
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         Book book = bookList.get(position);
         holder.tvTitle.setText(book.getTitle());
-        holder.tvAuthor.setText("Author: " + book.getAuthor());
-        holder.tvGenre.setText("Genre: " + book.getGenre());
-        holder.tvStatus.setText("Status: " + book.getStatus());
+        holder.tvAuthor.setText(context.getString(R.string.title_format, book.getAuthor()));
+        holder.tvGenre.setText(context.getString(R.string.genre_format, book.getGenre()));
+        holder.tvStatus.setText(context.getString(R.string.status_format, book.getStatus()));
 
-        // Handles book click to open the clicked book
+        // Open BookDetailsActivity on click
         holder.itemView.setOnClickListener(v -> {
-            FragmentTransaction transaction = ((AppCompatActivity) v.getContext())
-                    .getSupportFragmentManager()
-                    .beginTransaction();
-            transaction.replace(R.id.fragment_container, EditBookFragment.newInstance(book));
-            transaction.addToBackStack(null);
-            transaction.commit();
+            Intent intent = new Intent(v.getContext(), BookDetailsActivity.class);
+            intent.putExtra("book", book);
+            v.getContext().startActivity(intent);
         });
     }
 
