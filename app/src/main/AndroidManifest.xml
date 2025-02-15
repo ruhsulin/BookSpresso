@@ -13,8 +13,11 @@
         android:theme="@style/Theme.BookSpresso"
         tools:targetApi="31">
         <activity
+            android:name=".EditBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookDetailsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true"
