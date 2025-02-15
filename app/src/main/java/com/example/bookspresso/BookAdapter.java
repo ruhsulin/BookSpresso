@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), BookDetailsActivity.class);
             intent.putExtra("book", book);
-            v.getContext().startActivity(intent);
+            ((AppCompatActivity) context).startActivityForResult(intent, 2);
         });
     }
 
