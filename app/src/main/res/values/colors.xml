@@ -19,4 +19,10 @@
 
     <color name="hint_color">#BF555454</color>
 
+    <color name="totalBooks">#A87C7C</color>
+    <color name="readBooks">#7E6363</color>
+    <color name="borrowedBooks">#503C3C</color>
+
+
+
 </resources>
