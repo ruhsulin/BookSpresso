@@ -24,9 +24,18 @@
     <string name="description_format">Description: %s</string>
     <string name="status_format">Status: %s</string>
 
+    <!-- Statistic Cards -->
     <string name="reading_goal">Today\'s Goal: Read 20 pages</string>
     <string name="total_books">Total Books</string>
     <string name="bookicons">BookIcons</string>
     <string name="read_books">Read Books</string>
     <string name="loaned_books">Loaned Books</string>
+
+    <!-- Book Status Enums -->
+    <string-array name="book_status_options">
+        <item>To Read</item>
+        <item>Reading</item>
+        <item>Finished</item>
+        <item>Abandoned</item>
+    </string-array>
 </resources>

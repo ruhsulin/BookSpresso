@@ -90,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 book.setISBN(cursor.getString(5));
                 book.setPageNumber(cursor.getInt(6));
                 book.setDescription(cursor.getString(7));
-                book.setStatus(cursor.getString(8));
+                book.setStatus(Book.BookStatus.valueOf(cursor.getString(8).toUpperCase()));
                 book.setRegisteredDate(cursor.getString(9));
 
                 bookList.add(book);
@@ -112,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("ISBN", book.getISBN());
         values.put("PageNumber", book.getPageNumber());
         values.put("Description", book.getDescription());
-        values.put("Status", book.getStatus());
+        values.put("Status", book.getStatus().name());
 
         int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(book.getId())});
         db.close();

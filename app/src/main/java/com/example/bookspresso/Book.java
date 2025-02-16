@@ -11,8 +11,15 @@ public class Book implements Serializable {
     private String ISBN;
     private int pageNumber;
     private String description;
-    private String status;
+    private BookStatus status;
     private String registeredDate;
+
+    public enum BookStatus{
+        TO_READ,
+        READING,
+        FINISHED,
+        ABANDONED;
+    }
 
     // Getters and Setters
     public int getId() { return id; }
@@ -39,8 +46,8 @@ public class Book implements Serializable {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public BookStatus getStatus() { return status; }
+    public void setStatus(BookStatus status) { this.status = status; }
 
     public String getRegisteredDate() { return registeredDate; }
     public void setRegisteredDate(String registeredDate) { this.registeredDate = registeredDate; }
