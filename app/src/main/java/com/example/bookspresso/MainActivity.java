@@ -94,10 +94,8 @@ public class MainActivity extends AppCompatActivity {
             if (updatedBook != null) {
                 // Refresh HomeFragment
                 HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if (homeFragment != null && homeFragment.isVisible()) {
-                    homeFragment.updateBookInList(updatedBook);
                 }
-            }
+
         }
     }
 
