@@ -72,7 +72,7 @@ public class BookDetailsActivity extends AppCompatActivity {
                 book = updatedBook;
                 updateBookDetailsUI();
 
-                // Send updated book back to HomeFragment
+                // Send updated book back to AllBooksActivity
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedBook", updatedBook);
                 setResult(RESULT_OK, resultIntent);
