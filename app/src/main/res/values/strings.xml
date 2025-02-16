@@ -23,4 +23,10 @@
     <string name="pages_format">Pages: %d</string>
     <string name="description_format">Description: %s</string>
     <string name="status_format">Status: %s</string>
+
+    <string name="reading_goal">Today\'s Goal: Read 20 pages</string>
+    <string name="total_books">Total Books</string>
+    <string name="bookicons">BookIcons</string>
+    <string name="read_books">Read Books</string>
+    <string name="loaned_books">Loaned Books</string>
 </resources>
