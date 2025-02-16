@@ -13,6 +13,9 @@
         android:theme="@style/Theme.BookSpresso"
         tools:targetApi="31">
         <activity
+            android:name=".AllBooksActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditBookActivity"
             android:exported="false" />
         <activity
@@ -28,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <activitygit
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
