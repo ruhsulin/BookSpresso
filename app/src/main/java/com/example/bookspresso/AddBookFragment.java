@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.example.bookspresso.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -20,7 +19,8 @@ import java.util.Locale;
 public class AddBookFragment extends Fragment {
 
     Button btnAddBook;
-    EditText etId, etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription, etStatus, etRegisteredDate;
+    EditText  etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription;
+    private Spinner spinnerStatus;
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -36,16 +36,31 @@ public class AddBookFragment extends Fragment {
         etPageNumber = view.findViewById(R.id.etPageNumber);
         etISBN = view.findViewById(R.id.etIsbn);
         etDescription = view.findViewById(R.id.etDescription);
-        etStatus = view.findViewById(R.id.etStatus);
+        spinnerStatus = view.findViewById(R.id.spinnerStatus); // Ensure this is initialized
 
         databaseHelper = new DatabaseHelper(requireContext());
 
+        // Set up Spinner
+        if (spinnerStatus != null) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    requireContext(),
+                    R.array.book_status_options,
+                    android.R.layout.simple_spinner_item
+            );
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerStatus.setAdapter(adapter);
+        }
+
+        // Button to add book to DB
         btnAddBook.setOnClickListener(v -> addBookToDatabase());
+
         return view;
     }
+
+    // Saves Book to DB.
     private void addBookToDatabase() {
         SharedPreferences prefs = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        String userId = prefs.getString("userId", ""); // Merr ID e përdoruesit të loguar
+        String userId = prefs.getString("userId", "");
 
         if (userId.isEmpty()) {
             Toast.makeText(requireContext(), "User ID not found!", Toast.LENGTH_SHORT).show();
@@ -58,7 +73,7 @@ public class AddBookFragment extends Fragment {
         String publishedYear = etPublishedYear.getText().toString().trim();
         String isbn = etISBN.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
-        String status = etStatus.getText().toString().trim();
+        String selectedStatus = spinnerStatus.getSelectedItem().toString();
 
         int pageNumber;
         try {
@@ -72,11 +87,14 @@ public class AddBookFragment extends Fragment {
             return;
         }
 
+        // Convert status from String to Enum
+        Book.BookStatus bookStatus = Book.BookStatus.valueOf(selectedStatus.toUpperCase().replace(" ", "_"));
+
         // Get current date for RegisteredDate
         String registeredDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         // Insert into database
-        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, status, registeredDate, userId);
+        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId);
 
         if (success) {
             Toast.makeText(requireContext(), "Book added successfully!", Toast.LENGTH_LONG).show();
@@ -86,6 +104,7 @@ public class AddBookFragment extends Fragment {
         }
     }
 
+    // Clearing Book Fields
     private void clearFields() {
         etTitle.setText("");
         etAuthor.setText("");
@@ -94,7 +113,6 @@ public class AddBookFragment extends Fragment {
         etPageNumber.setText("");
         etISBN.setText("");
         etDescription.setText("");
-        etStatus.setText("");
+        spinnerStatus.setSelection(0);
     }
-
 }
