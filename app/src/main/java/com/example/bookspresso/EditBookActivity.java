@@ -2,10 +2,11 @@ package com.example.bookspresso;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 public class EditBookActivity extends AppCompatActivity {
     private Book book;
     private EditText etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription;
+    private Spinner spinnerStatus;
     private DatabaseHelper dbHelper;
 
     @Override
@@ -42,6 +44,7 @@ public class EditBookActivity extends AppCompatActivity {
         etISBN = findViewById(R.id.etISBN);
         etPageNumber = findViewById(R.id.etPageNumber);
         etDescription = findViewById(R.id.etDescription);
+        spinnerStatus = findViewById(R.id.spinnerStatus);
         Button btnSave = findViewById(R.id.btnSave);
 
         // Get book data
@@ -56,6 +59,31 @@ public class EditBookActivity extends AppCompatActivity {
             etDescription.setText(book.getDescription());
         }
 
+        // Populate spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.book_status_options,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerStatus.setAdapter(adapter);
+
+        // Get book data
+        book = (Book) getIntent().getSerializableExtra("editBook");
+        if (book != null) {
+            etTitle.setText(book.getTitle());
+            etAuthor.setText(book.getAuthor());
+            etGenre.setText(book.getGenre());
+            etPublishedYear.setText(String.valueOf(book.getPublishedYear()));
+            etISBN.setText(book.getISBN());
+            etPageNumber.setText(String.valueOf(book.getPageNumber()));
+            etDescription.setText(book.getDescription());
+
+            // Set spinner to current book status
+            int spinnerPosition = adapter.getPosition(book.getStatus().toString().replace("_", " "));
+            spinnerStatus.setSelection(spinnerPosition);
+        }
+
         // Save button click
         btnSave.setOnClickListener(v -> {
             // Update book object with new data
@@ -66,6 +94,10 @@ public class EditBookActivity extends AppCompatActivity {
             book.setISBN(etISBN.getText().toString());
             book.setPageNumber(Integer.parseInt(etPageNumber.getText().toString()));
             book.setDescription(etDescription.getText().toString());
+
+            // Update status from spinner
+            String selectedStatus = spinnerStatus.getSelectedItem().toString();
+            book.setStatus(Book.BookStatus.valueOf(selectedStatus.toUpperCase().replace(" ", "_")));
 
             // Update in database
             boolean updated = dbHelper.updateBook(book);
