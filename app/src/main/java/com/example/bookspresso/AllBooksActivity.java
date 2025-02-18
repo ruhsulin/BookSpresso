@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +23,9 @@ public class AllBooksActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SearchView searchView;
     private BookAdapter bookAdapter;
-    private DatabaseHelper databaseHelper;
+    private DatabaseHelper dbHelper;
     private List<Book> allBooks = new ArrayList<>();
+    private String filterType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +45,13 @@ public class AllBooksActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        databaseHelper = new DatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
-        // Load all books from DB
-        new LoadBooksFromDBTask().execute();
+        // Get filter type from intent
+        filterType = getIntent().getStringExtra("FILTER_TYPE");
+
+        // Load books based on filter
+        loadBooks(filterType);
 
         // Set up search functionality
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -64,44 +69,38 @@ public class AllBooksActivity extends AppCompatActivity {
         });
     }
 
-    private class LoadBooksFromDBTask extends AsyncTask<Void, Void, List<Book>> {
-        @Override
-        protected List<Book> doInBackground(Void... voids) {
-            SharedPreferences prefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-            String userId = prefs.getString("userId", "");
-            return userId.isEmpty() ? new ArrayList<>() : databaseHelper.getAllBooksForUser(userId);
-        }
+    private void loadBooks(String filter) {
+        SharedPreferences prefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        String userId = prefs.getString("userId", "");
 
-        @Override
-        protected void onPostExecute(List<Book> books) {
-            if (books != null) {
-                allBooks = books;
-                bookAdapter = new BookAdapter(AllBooksActivity.this, allBooks);
-                recyclerView.setAdapter(bookAdapter);
-            }
+        if (userId.isEmpty()) {
+            Toast.makeText(this, "User ID not found!", Toast.LENGTH_SHORT).show();
+            return;
         }
-    }
+        List<Book> bookList;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            Book updatedBook = (Book) data.getSerializableExtra("updatedBook");
-            if (updatedBook != null) {
-                updateBookInList(updatedBook);
-            }
-        }
-    }
-
-    // Method to update the book in RecyclerView
-    private void updateBookInList(Book updatedBook) {
-        for (int i = 0; i < allBooks.size(); i++) {
-            if (allBooks.get(i).getId() == updatedBook.getId()) {
-                allBooks.set(i, updatedBook);
-                bookAdapter.notifyItemChanged(i);
+        switch (filter) {
+            case "READ":
+                bookList = dbHelper.getReadBooksForUser(userId);
                 break;
-            }
+            case "BORROWED":
+                bookList = dbHelper.getAllBooksForUser(userId);
+                break;
+            default:
+                bookList = dbHelper.getAllBooksForUser(userId);
+                break;
         }
+        if (bookList.isEmpty()) {
+            Toast.makeText(this, "No books found!", Toast.LENGTH_SHORT).show();
+        }
+
+        updateRecyclerView(bookList);
+    }
+
+    private void updateRecyclerView(List<Book> bookList) {
+        bookAdapter = new BookAdapter(this, bookList);
+        recyclerView.setAdapter(bookAdapter);
+        bookAdapter.notifyDataSetChanged();
     }
 
     // Filter books based on search query
