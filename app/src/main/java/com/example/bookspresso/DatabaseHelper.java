@@ -101,6 +101,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return bookList;
     }
 
+    // get books where status == READ
+    public List<Book> getReadBooksForUser(String userId) {
+        List<Book> bookList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM Books WHERE UserId = ? AND Status = ?",
+                new String[]{userId, "READING"});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setId(cursor.getInt(0));
+                book.setTitle(cursor.getString(1));
+                book.setAuthor(cursor.getString(2));
+                book.setGenre(cursor.getString(3));
+                book.setPublishedYear(cursor.getInt(4));
+                book.setISBN(cursor.getString(5));
+                book.setPageNumber(cursor.getInt(6));
+                book.setDescription(cursor.getString(7));
+                book.setStatus(Book.BookStatus.READING); // Ensure it matches Enum value
+                book.setRegisteredDate(cursor.getString(9));
+
+                bookList.add(book);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return bookList;
+    }
     public boolean updateBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
