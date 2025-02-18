@@ -17,7 +17,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final String Table_Books = "Books";
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "BookSpressoDB", null, 4);
+        super(context, "BookSpressoDB", null, 5);
     }
 
     @Override
@@ -33,13 +33,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Description text," +
                 "Status text," +
                 "RegisteredDate text," +
-                "UserId Text)");
+                "UserId Text," +
+                "BorrowedTo Text," +
+                "BorrowedDate Text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        if (oldVersion < 4) {
-            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN UserId TEXT");
+        if (oldVersion < 5) {
+            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN BorrowedTo TEXT");
+            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN BorrowedDate  TEXT");
         }
     }
 
