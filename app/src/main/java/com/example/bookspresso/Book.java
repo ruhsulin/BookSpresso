@@ -13,12 +13,15 @@ public class Book implements Serializable {
     private String description;
     private BookStatus status;
     private String registeredDate;
+    private String borrowedTo;
+    private String borrowedDate;
 
     public enum BookStatus{
         TO_READ,
         READING,
         FINISHED,
-        ABANDONED;
+        ABANDONED,
+        BORROWED,
     }
 
     // Getters and Setters
@@ -51,4 +54,20 @@ public class Book implements Serializable {
 
     public String getRegisteredDate() { return registeredDate; }
     public void setRegisteredDate(String registeredDate) { this.registeredDate = registeredDate; }
+
+    public String getBorrowedTo() {
+        return borrowedTo;
+    }
+
+    public void setBorrowedTo(String borrowedTo) {
+        this.borrowedTo = borrowedTo;
+    }
+
+    public String getBorrowedDate() {
+        return borrowedDate;
+    }
+
+    public void setBorrowedDate(String borrowedDate) {
+        this.borrowedDate = borrowedDate;
+    }
 }

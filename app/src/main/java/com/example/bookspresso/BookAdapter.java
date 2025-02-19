@@ -38,7 +38,24 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.tvTitle.setText(book.getTitle());
         holder.tvAuthor.setText(context.getString(R.string.title_format, book.getAuthor()));
         holder.tvGenre.setText(context.getString(R.string.genre_format, book.getGenre()));
-        holder.tvStatus.setText(context.getString(R.string.status_format, book.getStatus()));
+
+        // Display Borrowed Info
+        if (book.getStatus() == Book.BookStatus.BORROWED) {
+            String borrowedTo = book.getBorrowedTo();
+            String borrowedDate = book.getBorrowedDate();
+
+            // if null than writing unknown to handle null error.
+            if (borrowedTo == null || borrowedTo.isEmpty()) {
+                borrowedTo = "Unknown Person";
+            }
+            if (borrowedDate == null || borrowedDate.isEmpty()) {
+                borrowedDate = "Unknown Date";
+            }
+
+            holder.tvStatus.setText("Borrowed by: " + borrowedTo + " on " + borrowedDate);
+        } else {
+            holder.tvStatus.setText("Status: " + book.getStatus().name());
+        }
 
         // Open BookDetailsActivity on click
         holder.itemView.setOnClickListener(v -> {

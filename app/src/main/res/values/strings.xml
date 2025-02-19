@@ -28,7 +28,7 @@
     <string name="reading_goal">Today\'s Goal: Read 20 pages</string>
     <string name="total_books">Total Books</string>
     <string name="bookicons">BookIcons</string>
-    <string name="read_books">Read Books</string>
+    <string name="read_books">Finished Books</string>
     <string name="loaned_books">Loaned Books</string>
 
     <!-- Book Status Enums -->
@@ -37,5 +37,6 @@
         <item>Reading</item>
         <item>Finished</item>
         <item>Abandoned</item>
+        <item>Borrowed</item>
     </string-array>
 </resources>
