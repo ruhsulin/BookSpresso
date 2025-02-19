@@ -20,7 +20,8 @@ public class Book implements Serializable {
         TO_READ,
         READING,
         FINISHED,
-        ABANDONED;
+        ABANDONED,
+        BORROWED,
     }
 
     // Getters and Setters
