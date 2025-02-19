@@ -48,6 +48,19 @@
         android:layout_height="wrap_content"
         android:hint="Description" />
 
+    <EditText
+        android:id="@+id/etBorrowedTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Borrowed To"
+        android:visibility="gone"/> <!-- Hidden by default, only shown for borrowed books -->
+
+    <EditText
+        android:id="@+id/etBorrowedDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Borrowed Date (YYYY-MM-DD)"
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
