@@ -1,9 +1,8 @@
 package com.example.bookspresso;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -21,11 +20,9 @@ import java.util.List;
 
 public class AllBooksActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private SearchView searchView;
     private BookAdapter bookAdapter;
     private DatabaseHelper dbHelper;
     private List<Book> allBooks = new ArrayList<>();
-    private String filterType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +39,13 @@ public class AllBooksActivity extends AppCompatActivity {
         }
 
         recyclerView = findViewById(R.id.recyclerView);
-        searchView = findViewById(R.id.searchView);
+        SearchView searchView = findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         dbHelper = new DatabaseHelper(this);
 
         // Get filter type from intent
-        filterType = getIntent().getStringExtra("FILTER_TYPE");
+        String filterType = getIntent().getStringExtra("FILTER_TYPE");
 
         // Load books based on filter
         loadBooks(filterType);
@@ -84,7 +81,7 @@ public class AllBooksActivity extends AppCompatActivity {
                 bookList = dbHelper.getReadBooksForUser(userId);
                 break;
             case "BORROWED":
-                bookList = dbHelper.getAllBooksForUser(userId);
+                bookList = dbHelper.getBorrowedBooksForUser(userId);
                 break;
             default:
                 bookList = dbHelper.getAllBooksForUser(userId);
@@ -97,6 +94,7 @@ public class AllBooksActivity extends AppCompatActivity {
         updateRecyclerView(bookList);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void updateRecyclerView(List<Book> bookList) {
         bookAdapter = new BookAdapter(this, bookList);
         recyclerView.setAdapter(bookAdapter);
