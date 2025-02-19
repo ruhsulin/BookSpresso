@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -52,6 +53,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         TextView tvISBN = findViewById(R.id.tvISBN);
         TextView tvPageNumber = findViewById(R.id.tvPageNumber);
         TextView tvDescription = findViewById(R.id.tvDescription);
+        TextView tvBorrowedBy = findViewById(R.id.tvBorrowedBy);
+        TextView tvStatus = findViewById(R.id.tvStatus);
 
         tvTitle.setText(getString(R.string.title_format, book.getTitle()));
         tvAuthor.setText(getString(R.string.author_format, book.getAuthor()));
@@ -60,6 +63,30 @@ public class BookDetailsActivity extends AppCompatActivity {
         tvISBN.setText(getString(R.string.isbn_format, book.getISBN()));
         tvPageNumber.setText(getString(R.string.pages_format, book.getPageNumber()));
         tvDescription.setText(getString(R.string.description_format, book.getDescription()));
+
+        // Set book status
+        tvStatus.setText(getString(R.string.status_format, book.getStatus().name()));
+
+        // If the book is borrowed, show borrowed data
+        if (book.getStatus() == Book.BookStatus.BORROWED) {
+            String borrowedTo = book.getBorrowedTo();
+            String borrowedDate = book.getBorrowedDate();
+
+            if (borrowedTo == null || borrowedTo.isEmpty()) {
+                borrowedTo = "Unknown Person";
+            }
+            if (borrowedDate == null || borrowedDate.isEmpty()) {
+                borrowedDate = "Unknown Date";
+            }
+
+            tvBorrowedBy.setText("Borrowed by " + borrowedTo + " on " + borrowedDate);
+            tvBorrowedBy.setVisibility(View.VISIBLE);
+            tvStatus.setVisibility(View.GONE);
+        } else {
+            tvStatus.setText(getString(R.string.status_format, book.getStatus().name()));
+            tvStatus.setVisibility(View.VISIBLE);
+            tvBorrowedBy.setVisibility(View.GONE);
+        }
     }
 
     // Handle the result from EditBookActivity and update UI
