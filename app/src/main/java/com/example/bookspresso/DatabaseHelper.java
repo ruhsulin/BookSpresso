@@ -23,19 +23,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table " + Table_Books + "(" +
-                "Id integer primary key autoincrement," +
-                "Title text," +
-                "Author text," +
-                "Genre text," +
-                "PublishedYear integer," +
-                "ISBN text," +
-                "PageNumber integer," +
-                "Description text," +
-                "Status text," +
-                "RegisteredDate text," +
-                "UserId Text," +
-                "BorrowedTo Text," +
-                "BorrowedDate Text)");
+                "Id integer primary key autoincrement," + //0
+                "Title text," + //1
+                "Author text," + //2
+                "Genre text," + //3
+                "PublishedYear integer," + //4
+                "ISBN text," + //5
+                "PageNumber integer," + //6
+                "Description text," + //7
+                "Status text," + //8
+                "RegisteredDate text," + //9
+                "UserId Text," + //10
+                "BorrowedTo Text," + //11
+                "BorrowedDate Text)"); //12
     }
 
     @Override
@@ -55,7 +55,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                               String description,
                               String status,
                               String registeredDate,
-                              String userId) {
+                              String userId,
+                              String borrowedTo,
+                              String borrowedDate) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -70,6 +72,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Status", status);
         values.put("RegisteredDate", registeredDate);
         values.put("UserId", userId);
+        values.put("BorrowedTo", borrowedTo);
+        values.put("BorrowedDate", borrowedDate);
 
         long result = db.insert(Table_Books, null, values);
         db.close();
@@ -96,6 +100,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 book.setStatus(Book.BookStatus.valueOf(cursor.getString(8).toUpperCase()));
                 book.setRegisteredDate(cursor.getString(9));
 
+                // get Borrowed books info
+                String borrowedTo = cursor.getString(11);
+                String borrowedDate = cursor.getString(12);
+
+                System.out.println("Retrieved from DB - BorrowedTo: " + borrowedTo + ", BorrowedDate: " + borrowedDate);
+
+                book.setBorrowedTo(borrowedTo != null ? borrowedTo : "");
+                book.setBorrowedDate(borrowedDate != null ? borrowedDate : "");
+
                 bookList.add(book);
             }while (cursor.moveToNext());
         }
@@ -110,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM Books WHERE UserId = ? AND Status = ?",
-                new String[]{userId, "READING"});
+                new String[]{userId, "FINISHED"});
 
         if (cursor.moveToFirst()) {
             do {
@@ -123,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 book.setISBN(cursor.getString(5));
                 book.setPageNumber(cursor.getInt(6));
                 book.setDescription(cursor.getString(7));
-                book.setStatus(Book.BookStatus.READING); // Ensure it matches Enum value
+                book.setStatus(Book.BookStatus.FINISHED);
                 book.setRegisteredDate(cursor.getString(9));
 
                 bookList.add(book);
@@ -133,6 +146,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return bookList;
     }
+
+    // get books where status == Borrowed
+    public List<Book> getBorrowedBooksForUser(String userId) {
+        List<Book> bookList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM Books WHERE UserId = ? AND Status = ?",
+                new String[]{userId, "BORROWED"});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setId(cursor.getInt(0));
+                book.setTitle(cursor.getString(1));
+                book.setAuthor(cursor.getString(2));
+                book.setGenre(cursor.getString(3));
+                book.setPublishedYear(cursor.getInt(4));
+                book.setISBN(cursor.getString(5));
+                book.setPageNumber(cursor.getInt(6));
+                book.setDescription(cursor.getString(7));
+                book.setStatus(Book.BookStatus.BORROWED);
+                book.setRegisteredDate(cursor.getString(9));
+
+                // get Borrowed books info
+                String borrowedTo = cursor.getString(11);
+                String borrowedDate = cursor.getString(12);
+
+                System.out.println("Retrieved from DB - BorrowedTo: " + borrowedTo + ", BorrowedDate: " + borrowedDate);
+
+                book.setBorrowedTo(borrowedTo != null ? borrowedTo : "");
+                book.setBorrowedDate(borrowedDate != null ? borrowedDate : "");
+
+                bookList.add(book);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return bookList;
+    }
+
     public boolean updateBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -145,6 +198,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("PageNumber", book.getPageNumber());
         values.put("Description", book.getDescription());
         values.put("Status", book.getStatus().name());
+        // Handle borrowed fields properly
+        if (book.getStatus() == Book.BookStatus.BORROWED) {
+            values.put("BorrowedTo", book.getBorrowedTo() != null ? book.getBorrowedTo() : "");
+            values.put("BorrowedDate", book.getBorrowedDate() != null ? book.getBorrowedDate() : "");
+        } else {
+            values.put("BorrowedTo", "");  // Clear value if not borrowed
+            values.put("BorrowedDate", "");
+        }
 
         int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(book.getId())});
         db.close();
