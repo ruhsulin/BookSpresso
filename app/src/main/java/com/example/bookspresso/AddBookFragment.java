@@ -19,7 +19,7 @@ import java.util.Locale;
 public class AddBookFragment extends Fragment {
 
     Button btnAddBook;
-    EditText  etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription;
+    EditText  etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription, etBorrowedTo, etBorrowedDate;
     private Spinner spinnerStatus;
     private DatabaseHelper databaseHelper;
 
@@ -36,7 +36,9 @@ public class AddBookFragment extends Fragment {
         etPageNumber = view.findViewById(R.id.etPageNumber);
         etISBN = view.findViewById(R.id.etIsbn);
         etDescription = view.findViewById(R.id.etDescription);
-        spinnerStatus = view.findViewById(R.id.spinnerStatus); // Ensure this is initialized
+        etBorrowedTo = view.findViewById(R.id.etBorrowedTo);
+        etBorrowedDate = view.findViewById(R.id.etBorrowedDate);
+        spinnerStatus = view.findViewById(R.id.spinnerStatus);
 
         databaseHelper = new DatabaseHelper(requireContext());
 
@@ -73,7 +75,10 @@ public class AddBookFragment extends Fragment {
         String publishedYear = etPublishedYear.getText().toString().trim();
         String isbn = etISBN.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
+        String borrowedTo = etBorrowedTo.getText().toString().trim();
+        String borrowedDate = etBorrowedDate.getText().toString().trim();
         String selectedStatus = spinnerStatus.getSelectedItem().toString();
+
 
         int pageNumber;
         try {
@@ -94,7 +99,7 @@ public class AddBookFragment extends Fragment {
         String registeredDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         // Insert into database
-        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId);
+        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId, borrowedTo, borrowedDate);
 
         if (success) {
             Toast.makeText(requireContext(), "Book added successfully!", Toast.LENGTH_LONG).show();
