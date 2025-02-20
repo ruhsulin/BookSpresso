@@ -186,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return bookList;
     }
 
+    // edit book
     public boolean updateBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -211,5 +212,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return rowsAffected > 0;
+    }
+
+    // get number of all books.
+    public int getTotalBooksCount(String userId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT (*) FROM BOOKS WHERE UserId = ?", new String[]{userId});
+
+        int count = 0;
+        if(cursor.moveToFirst()){
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    // Get count of Read books
+    public int getReadBooksCount(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Books WHERE UserId = ? AND Status = ?", new String[]{userId, "FINISHED"});
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    // Get count of Borrowed books
+    public int getBorrowedBooksCount(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Books WHERE UserId = ? AND Status = ?", new String[]{userId, "BORROWED"});
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return count;
     }
 }
