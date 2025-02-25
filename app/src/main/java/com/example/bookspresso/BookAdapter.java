@@ -1,14 +1,21 @@
 package com.example.bookspresso;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
@@ -32,12 +39,21 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
      * Binds book data to the RecyclerView item and sets click listener.
      * When a book is clicked opens BookDetails activity.
      */
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         Book book = bookList.get(position);
         holder.tvTitle.setText(book.getTitle());
         holder.tvAuthor.setText(context.getString(R.string.title_format, book.getAuthor()));
         holder.tvGenre.setText(context.getString(R.string.genre_format, book.getGenre()));
+
+        if (book.getImagePath() != null && !book.getImagePath().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(Uri.parse(book.getImagePath()))
+                    .into(holder.ivBookImage);
+        } else {
+            holder.ivBookImage.setImageResource(R.drawable.default_book_image);
+        }
 
         // Display Borrowed Info
         if (book.getStatus() == Book.BookStatus.BORROWED) {
@@ -72,6 +88,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     public static class BookViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvAuthor, tvGenre, tvStatus;
+        ImageView ivBookImage;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +96,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
             tvGenre = itemView.findViewById(R.id.tvGenre);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            ivBookImage = itemView.findViewById(R.id.ivBookImage);
         }
     }
 }
