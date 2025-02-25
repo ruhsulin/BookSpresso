@@ -1,15 +1,21 @@
 package com.example.bookspresso;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
@@ -20,6 +26,11 @@ public class AddBookFragment extends Fragment {
 
     Button btnAddBook;
     EditText  etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription, etBorrowedTo, etBorrowedDate;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri selectedImageUri;
+
+    private ImageView ivBookImage;
+    private Button btnSelectImage;
     private Spinner spinnerStatus;
     private DatabaseHelper databaseHelper;
 
@@ -39,6 +50,8 @@ public class AddBookFragment extends Fragment {
         etBorrowedTo = view.findViewById(R.id.etBorrowedTo);
         etBorrowedDate = view.findViewById(R.id.etBorrowedDate);
         spinnerStatus = view.findViewById(R.id.spinnerStatus);
+        ivBookImage = view.findViewById(R.id.ivBookImage);
+        btnSelectImage = view.findViewById(R.id.btnSelectImage);
 
         databaseHelper = new DatabaseHelper(requireContext());
 
@@ -53,10 +66,27 @@ public class AddBookFragment extends Fragment {
             spinnerStatus.setAdapter(adapter);
         }
 
+        // Choose book image
+        btnSelectImage.setOnClickListener(v -> openImagePicker());
+
         // Button to add book to DB
         btnAddBook.setOnClickListener(v -> addBookToDatabase());
 
         return view;
+    }
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            selectedImageUri = data.getData();
+            ivBookImage.setImageURI(selectedImageUri);
+        }
     }
 
     // Saves Book to DB.
@@ -79,6 +109,9 @@ public class AddBookFragment extends Fragment {
         String borrowedDate = etBorrowedDate.getText().toString().trim();
         String selectedStatus = spinnerStatus.getSelectedItem().toString();
 
+        //get image path
+        String imagePath = selectedImageUri != null ? selectedImageUri.toString() : null;
+
 
         int pageNumber;
         try {
@@ -98,8 +131,7 @@ public class AddBookFragment extends Fragment {
         // Get current date for RegisteredDate
         String registeredDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-        // Insert into database
-        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId, borrowedTo, borrowedDate);
+        boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId, borrowedTo, borrowedDate, imagePath);
 
         if (success) {
             Toast.makeText(requireContext(), "Book added successfully!", Toast.LENGTH_LONG).show();

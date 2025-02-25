@@ -15,6 +15,7 @@ public class Book implements Serializable {
     private String registeredDate;
     private String borrowedTo;
     private String borrowedDate;
+    private String imagePath;
 
     public enum BookStatus{
         TO_READ,
@@ -58,7 +59,6 @@ public class Book implements Serializable {
     public String getBorrowedTo() {
         return borrowedTo;
     }
-
     public void setBorrowedTo(String borrowedTo) {
         this.borrowedTo = borrowedTo;
     }
@@ -66,8 +66,14 @@ public class Book implements Serializable {
     public String getBorrowedDate() {
         return borrowedDate;
     }
-
     public void setBorrowedDate(String borrowedDate) {
         this.borrowedDate = borrowedDate;
+    }
+
+    public String getImagePath(){
+        return imagePath;
+    }
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
     }
 }

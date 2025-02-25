@@ -17,7 +17,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final String Table_Books = "Books";
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "BookSpressoDB", null, 5);
+        super(context, "BookSpressoDB", null, 6);
     }
 
     @Override
@@ -35,14 +35,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "RegisteredDate text," + //9
                 "UserId Text," + //10
                 "BorrowedTo Text," + //11
-                "BorrowedDate Text)"); //12
+                "BorrowedDate Text," + //12
+                "ImagePath Text)"); //13
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        if (oldVersion < 5) {
-            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN BorrowedTo TEXT");
-            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN BorrowedDate  TEXT");
+        if (oldVersion < 6) {
+            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN ImagePath TEXT");
         }
     }
 
@@ -57,7 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                               String registeredDate,
                               String userId,
                               String borrowedTo,
-                              String borrowedDate) {
+                              String borrowedDate,
+                              String imagePath) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -74,6 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("UserId", userId);
         values.put("BorrowedTo", borrowedTo);
         values.put("BorrowedDate", borrowedDate);
+        values.put("ImagePath", imagePath);
 
         long result = db.insert(Table_Books, null, values);
         db.close();
@@ -103,6 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // get Borrowed books info
                 String borrowedTo = cursor.getString(11);
                 String borrowedDate = cursor.getString(12);
+                book.setImagePath(cursor.getString(13));
 
                 System.out.println("Retrieved from DB - BorrowedTo: " + borrowedTo + ", BorrowedDate: " + borrowedDate);
 
