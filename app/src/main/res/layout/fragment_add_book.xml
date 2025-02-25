@@ -83,6 +83,20 @@
             android:layout_marginStart="10dp"/>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivBookImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/default_book_image"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Image" />
+
     <Button
         android:id="@+id/btnAddBook"
         android:layout_width="match_parent"
