@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green_900"
+        android:background="@color/readBooks"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -28,7 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/green_900"
-        app:itemIconTint="@color/app_background"
+        android:background="@color/readBooks"
+        app:itemTextColor="@color/active_nav_color"
+        app:itemIconTint="@color/active_nav_color"
+        app:itemIconSize="35dp"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu" />
 </RelativeLayout>
