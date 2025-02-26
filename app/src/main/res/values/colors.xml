@@ -13,6 +13,7 @@
     <color name="app_background">#FAF1E4</color>
     <color name="green_900">#435334</color>
     <color name="green_700">#9EB384</color>
+    <color name="inactive_tab_light_gray">#c2bbb2</color>
 
     <color name="brown_900">#3E3232</color>
     <color name="brown_800">#422520</color>
@@ -22,7 +23,4 @@
     <color name="totalBooks">#A87C7C</color>
     <color name="readBooks">#7E6363</color>
     <color name="borrowedBooks">#503C3C</color>
-
-
-
 </resources>
