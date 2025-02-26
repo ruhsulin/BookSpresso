@@ -30,6 +30,23 @@
     <string name="bookicons">BookIcons</string>
     <string name="read_books">Finished Books</string>
     <string name="loaned_books">Loaned Books</string>
+    <string name="add_new_book">Add new Book</string>
+
+    <!-- Book data ui -->
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="genre">Genre</string>
+    <string name="published_year">Published Year</string>
+    <string name="isbn">ISBN</string>
+    <string name="page_number">Page Number</string>
+    <string name="description">Description</string>
+    <string name="borrowed_to">Borrowed To</string>
+    <string name="borrowed_date_yyyy_mm_dd">Borrowed Date (YYYY-MM-DD)</string>
+    <string name="status">Status:</string>
+    <string name="image">Select Image:</string>
+    <string name="book_image">Book Image</string>
+    <string name="select_image">Select Image</string>
+    <string name="add_book">Add Book</string>
 
     <!-- Book Status Enums -->
     <string-array name="book_status_options">
