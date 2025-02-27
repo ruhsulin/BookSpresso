@@ -1,40 +1,83 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="8dp">
 
+    <!-- Book Image -->
     <ImageView
         android:id="@+id/ivBookImage"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/default_book_image"/>
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/default_book_image"
+        android:contentDescription="@string/book_image" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Title"/>
 
-    <TextView
-        android:id="@+id/tvAuthor"
-        android:layout_width="match_parent"
+    <!-- Book Details -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Author"/>
+        android:layout_weight="5"
+        android:orientation="vertical"
+        tools:ignore="RtlSymmetry">
 
-    <TextView
-        android:id="@+id/tvGenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Genre"/>
+        <!-- Book Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/borrowedBooks"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="Book Title" />
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Status"/>
+        <!-- Book Author -->
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/light_black"
+            android:fontFamily="@font/poppins_medium"
+            tools:text="Author: Dritero Agolli" />
+
+        <!-- Book Genre -->
+        <TextView
+            android:id="@+id/tvGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/light_black"
+            android:fontFamily="@font/poppins_medium"
+            tools:text="Genre: Roman" />
+
+        <!-- Book Published Year -->
+        <TextView
+            android:id="@+id/tvPublishedYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/light_black"
+            android:fontFamily="@font/poppins_medium"
+            tools:text="Published Year: 1987" />
+
+        <!-- Book Status -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/light_black"
+            android:fontFamily="@font/poppins_medium"
+            tools:text="Status: TO READ" />
+    </LinearLayout>
+
 </LinearLayout>
