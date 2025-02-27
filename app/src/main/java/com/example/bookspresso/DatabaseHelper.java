@@ -107,8 +107,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String borrowedDate = cursor.getString(12);
                 book.setImagePath(cursor.getString(13));
 
-                System.out.println("Retrieved from DB - BorrowedTo: " + borrowedTo + ", BorrowedDate: " + borrowedDate);
-
                 book.setBorrowedTo(borrowedTo != null ? borrowedTo : "");
                 book.setBorrowedDate(borrowedDate != null ? borrowedDate : "");
 
