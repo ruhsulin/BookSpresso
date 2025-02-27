@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +43,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         Book book = bookList.get(position);
         holder.tvTitle.setText(book.getTitle());
-        holder.tvAuthor.setText(context.getString(R.string.title_format, book.getAuthor()));
+        holder.tvAuthor.setText(context.getString(R.string.author_format, book.getAuthor()));
         holder.tvGenre.setText(context.getString(R.string.genre_format, book.getGenre()));
+        holder.tvPublishedYear.setText(context.getString(R.string.published_year_format, book.getPublishedYear()));
 
         if (book.getImagePath() != null && !book.getImagePath().isEmpty()) {
             Glide.with(holder.itemView.getContext())
@@ -68,7 +68,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                 borrowedDate = "Unknown Date";
             }
 
-            holder.tvStatus.setText("Borrowed by: " + borrowedTo + " on " + borrowedDate);
+            holder.tvStatus.setText("Borrowed by: " + borrowedTo + ", on " + borrowedDate);
         } else {
             holder.tvStatus.setText("Status: " + book.getStatus().name());
         }
@@ -87,7 +87,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     }
 
     public static class BookViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvAuthor, tvGenre, tvStatus;
+        TextView tvTitle, tvAuthor, tvGenre, tvStatus, tvPublishedYear, tvDescription;
         ImageView ivBookImage;
 
         public BookViewHolder(@NonNull View itemView) {
@@ -96,6 +96,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
             tvGenre = itemView.findViewById(R.id.tvGenre);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvPublishedYear = itemView.findViewById(R.id.tvPublishedYear);
             ivBookImage = itemView.findViewById(R.id.ivBookImage);
         }
     }
