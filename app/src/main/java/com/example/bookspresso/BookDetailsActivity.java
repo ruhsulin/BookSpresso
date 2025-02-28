@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class BookDetailsActivity extends AppCompatActivity {
     private Book book;
@@ -36,7 +40,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         }
 
         // Open EditBookActivity
-        Button btnEdit = findViewById(R.id.btnEdit);
+        ImageView btnEdit = findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(BookDetailsActivity.this, EditBookActivity.class);
             intent.putExtra("editBook", book);
@@ -55,14 +59,26 @@ public class BookDetailsActivity extends AppCompatActivity {
         TextView tvDescription = findViewById(R.id.tvDescription);
         TextView tvBorrowedBy = findViewById(R.id.tvBorrowedBy);
         TextView tvStatus = findViewById(R.id.tvStatus);
+        ImageView ivBookImage = findViewById(R.id.ivBookImage);
 
-        tvTitle.setText(getString(R.string.title_format, book.getTitle()));
+        tvTitle.setText(getString(R.string.empty_string, book.getTitle()));
         tvAuthor.setText(getString(R.string.author_format, book.getAuthor()));
         tvGenre.setText(getString(R.string.genre_format, book.getGenre()));
         tvPublishedYear.setText(getString(R.string.published_year_format, book.getPublishedYear()));
         tvISBN.setText(getString(R.string.isbn_format, book.getISBN()));
         tvPageNumber.setText(getString(R.string.pages_format, book.getPageNumber()));
         tvDescription.setText(getString(R.string.description_format, book.getDescription()));
+
+        // Load book image using Glide
+        if (book.getImagePath() != null && !book.getImagePath().isEmpty()) {
+            Glide.with(this)
+                    .load(book.getImagePath())
+                    .placeholder(R.drawable.rounded_corner_image)
+                    .error(R.drawable.ic_image)
+                    .into(ivBookImage);
+        } else {
+            ivBookImage.setImageResource(R.drawable.default_book_image);
+        }
 
         // Set book status
         tvStatus.setText(getString(R.string.status_format, book.getStatus().name()));
