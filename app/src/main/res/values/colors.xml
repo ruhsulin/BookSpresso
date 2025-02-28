@@ -11,7 +11,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
 
-
     <color name="app_background">#FAF1E4</color>
     <color name="green_900">#435334</color>
     <color name="green_700">#9EB384</color>
@@ -25,4 +24,10 @@
     <color name="totalBooks">#A87C7C</color>
     <color name="readBooks">#7E6363</color>
     <color name="borrowedBooks">#503C3C</color>
+
+    <color name="btn_favorite">#e075ad</color>
+    <color name="btn_edit">#babf15</color>
+    <color name="btn_delete">#99111e</color>
+
+
 </resources>

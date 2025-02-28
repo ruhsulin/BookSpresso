@@ -23,6 +23,7 @@
     <string name="pages_format">Pages: %d</string>
     <string name="description_format">Description: %s</string>
     <string name="status_format">Status: %s</string>
+    <string name="empty_string"> %s</string>
 
     <!-- Statistic Cards -->
     <string name="reading_goal">Today\'s Goal: Read 20 pages</string>
@@ -47,6 +48,9 @@
     <string name="book_image">Book Image</string>
     <string name="select_image">Select Image</string>
     <string name="add_book">Add Book</string>
+    <string name="favorite">Favorite</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!-- Book Status Enums -->
     <string-array name="book_status_options">
