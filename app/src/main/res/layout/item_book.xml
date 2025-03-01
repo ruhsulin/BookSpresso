@@ -31,7 +31,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textStyle="bold"
             android:textColor="@color/borrowedBooks"
             android:fontFamily="@font/poppins_medium"
@@ -44,7 +44,7 @@
             android:id="@+id/tvAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="15.5sp"
             android:textColor="@color/light_black"
             android:fontFamily="@font/poppins_medium"
             tools:text="Author: Dritero Agolli" />
@@ -54,7 +54,7 @@
             android:id="@+id/tvGenre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="15.5sp"
             android:textColor="@color/light_black"
             android:fontFamily="@font/poppins_medium"
             tools:text="Genre: Roman" />
@@ -64,7 +64,7 @@
             android:id="@+id/tvPublishedYear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="15.5sp"
             android:textColor="@color/light_black"
             android:fontFamily="@font/poppins_medium"
             tools:text="Published Year: 1987" />
@@ -74,7 +74,7 @@
             android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="15.5sp"
             android:textColor="@color/light_black"
             android:fontFamily="@font/poppins_medium"
             tools:text="Status: TO READ" />
