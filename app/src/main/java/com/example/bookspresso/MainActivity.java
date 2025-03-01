@@ -9,20 +9,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import com.example.bookspresso.HomeFragment;
-import com.example.bookspresso.AddBookFragment;
-import com.example.bookspresso.GoalFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,14 +31,19 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-    // Load Home Fragment by default
+        // Load Home Fragment by default
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
         }
+
+        // AddBook button
+        FloatingActionButton fabAddBook = findViewById(R.id.fabAddBook);
+        fabAddBook.setOnClickListener(view -> openFragment(new AddBookFragment()));
     }
 
+    // Navigating through Bottom NavBar
     private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -54,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
                     if (item.getItemId() == R.id.nav_home) {
                         selectedFragment = new HomeFragment();
-                    } else if (item.getItemId() == R.id.nav_add_book) {
-                        selectedFragment = new AddBookFragment();
-                    } else if (item.getItemId() == R.id.nav_goal) {
+                    }
+                    else if (item.getItemId() == R.id.nav_favorites) {
+                        selectedFragment = new FavoritesFragment();
+                    }
+                    else if (item.getItemId() == R.id.nav_goal) {
                         selectedFragment = new GoalFragment();
                     }
 
@@ -84,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Method to open Add Book Fragment
+    private void openFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
