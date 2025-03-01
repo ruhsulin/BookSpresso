@@ -51,6 +51,7 @@
     <string name="favorite">Favorite</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Book Status Enums -->
     <string-array name="book_status_options">
