@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,18 +27,18 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        LinearLayout llTotalBooks = rootView.findViewById(R.id.ll_totalBooks);
-        LinearLayout llReadBooks = rootView.findViewById(R.id.ll_readedBooks);
-        LinearLayout llBorrowedBooks = rootView.findViewById(R.id.ll_borrowedBooks);
+        CardView cvTotalBooks = rootView.findViewById(R.id.cv_total_books);
+        CardView cvReadBooks = rootView.findViewById(R.id.cv_read_book);
+        CardView cvBorrowedBooks = rootView.findViewById(R.id.cv_borrowed_books);
 
         // When clicking "Total Books"
-        llTotalBooks.setOnClickListener(v -> openBookList("ALL"));
+        cvTotalBooks.setOnClickListener(v -> openBookList("ALL"));
 
         // When clicking "Read Books"
-        llReadBooks.setOnClickListener(v -> openBookList("READ"));
+        cvReadBooks.setOnClickListener(v -> openBookList("READ"));
 
         // When clicking "Borrowed Books"
-        llBorrowedBooks.setOnClickListener(v -> openBookList("BORROWED"));
+        cvBorrowedBooks.setOnClickListener(v -> openBookList("BORROWED"));
 
         return rootView;
     }
@@ -82,8 +83,8 @@ public class HomeFragment extends Fragment {
 
         // Update UI
         TextView tvTotalBooks = requireView().findViewById(R.id.tv_totalBooks_number);
-        TextView tvReadBooks = requireView().findViewById(R.id.tv_readBooks_number);
-        TextView tvBorrowedBooks = requireView().findViewById(R.id.tv_borrowedBooks_number);
+        TextView tvReadBooks = requireView().findViewById(R.id.tv_readbooks_number);
+        TextView tvBorrowedBooks = requireView().findViewById(R.id.tv_borrowedbooks_number);
 
         tvTotalBooks.setText(String.valueOf(totalBooks));
         tvReadBooks.setText(String.valueOf(readBooks));
