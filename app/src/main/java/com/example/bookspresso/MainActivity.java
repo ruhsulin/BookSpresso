@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         // AddBook button
         FloatingActionButton fabAddBook = findViewById(R.id.fabAddBook);
-        fabAddBook.setOnClickListener(view -> openFragment(new AddBookFragment()));
+        fabAddBook.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
+            startActivity(intent);
+        });
     }
 
     // Navigating through Bottom NavBar

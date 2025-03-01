@@ -1,15 +1,29 @@
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ScrollView
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:layout_below="@+id/toolbar"
+        tools:ignore="ScrollViewCount">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="30dp">
 
         <!-- textView: add new book -->
         <TextView
@@ -27,7 +41,7 @@
             android:layout_width="110dp"
             android:layout_height="5dp"
             android:layout_gravity="center"
-            android:background="@color/borrowedBooks"
+            android:background="@color/green_700"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"/>
 
@@ -88,9 +102,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/page_number"
+            android:importantForAutofill="no"
             android:inputType="number"
-            android:paddingBottom="20dp"
-            android:importantForAutofill="no" />
+            android:paddingBottom="20dp" />
 
         <!-- TextView:  Description -->
         <EditText
@@ -119,7 +133,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/borrowed_date_yyyy_mm_dd"
             android:visibility="gone"
-            android:paddingBottom="20dp"
+            android:paddingBottom="30dp"
             android:importantForAutofill="no"
             android:inputType="date" />
 
@@ -128,7 +142,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="10dp"
             android:paddingBottom="20dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,21 +203,55 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:drawableStart="@drawable/ic_image"
+                android:backgroundTint="@color/readBooks"
                 android:background="@drawable/select_image_rounded"
                 android:layout_weight="1"/>
         </LinearLayout>
 
-        <!-- Button: Register Book -->
-        <Button
-            android:id="@+id/btnAddBook"
+        <!-- Button: Add Book -->
+        <LinearLayout
+            android:id="@+id/ll_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_book"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="25sp"
-            android:padding="20dp"
-            android:background="@drawable/btn_add_book_ripple_effect"
-            android:textColor="@color/app_background"/>
+            android:orientation="horizontal"
+>
+
+            <Button
+                android:id="@+id/btnAddBook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/btn_add_book_ripple_effect"
+                android:backgroundTint="@color/green_900"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/add_book"
+                android:textColor="@color/app_background"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_add_book_ripple_effect"
+                android:backgroundTint="@color/btn_delete"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/cancel"
+                android:textColor="@color/app_background"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
     </LinearLayout>
+
 </ScrollView>
+
+
+
+</RelativeLayout>

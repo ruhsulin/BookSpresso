@@ -6,59 +6,70 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddBookFragment extends Fragment {
+public class AddBookActivity extends AppCompatActivity {
 
-    Button btnAddBook;
-    EditText  etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription, etBorrowedTo, etBorrowedDate;
+    private Button btnAddBook, btnSelectImage, btnCancel;
+    private EditText etTitle, etAuthor, etGenre, etPublishedYear, etISBN, etPageNumber, etDescription, etBorrowedTo, etBorrowedDate;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
-
     private ImageView ivBookImage;
-    private Button btnSelectImage;
     private Spinner spinnerStatus;
     private DatabaseHelper databaseHelper;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_book, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_book);
 
-        btnAddBook = view.findViewById(R.id.btnAddBook);
-        etTitle = view.findViewById(R.id.etTitle);
-        etAuthor = view.findViewById(R.id.etAuthor);
-        etGenre = view.findViewById(R.id.etGenre);
-        etPublishedYear = view.findViewById(R.id.etPublishedYear);
-        etPageNumber = view.findViewById(R.id.etPageNumber);
-        etISBN = view.findViewById(R.id.etIsbn);
-        etDescription = view.findViewById(R.id.etDescription);
-        etBorrowedTo = view.findViewById(R.id.etBorrowedTo);
-        etBorrowedDate = view.findViewById(R.id.etBorrowedDate);
-        spinnerStatus = view.findViewById(R.id.spinnerStatus);
-        ivBookImage = view.findViewById(R.id.ivBookImage);
-        btnSelectImage = view.findViewById(R.id.btnSelectImage);
+        btnAddBook = findViewById(R.id.btnAddBook);
+        etTitle = findViewById(R.id.etTitle);
+        etAuthor = findViewById(R.id.etAuthor);
+        etGenre = findViewById(R.id.etGenre);
+        etPublishedYear = findViewById(R.id.etPublishedYear);
+        etPageNumber = findViewById(R.id.etPageNumber);
+        etISBN = findViewById(R.id.etIsbn);
+        etDescription = findViewById(R.id.etDescription);
+        etBorrowedTo = findViewById(R.id.etBorrowedTo);
+        etBorrowedDate = findViewById(R.id.etBorrowedDate);
+        spinnerStatus = findViewById(R.id.spinnerStatus);
+        ivBookImage = findViewById(R.id.ivBookImage);
+        btnSelectImage = findViewById(R.id.btnSelectImage);
+        btnCancel = findViewById(R.id.btnCancel);
 
-        databaseHelper = new DatabaseHelper(requireContext());
+        databaseHelper = new DatabaseHelper(this);
+
+        // Setup Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("All Book");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back button
+        }
 
         // Set up Spinner
         if (spinnerStatus != null) {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                    requireContext(),
+                    this,
                     R.array.book_status_options,
                     android.R.layout.simple_spinner_item
             );
@@ -72,7 +83,14 @@ public class AddBookFragment extends Fragment {
         // Button to add book to DB
         btnAddBook.setOnClickListener(v -> addBookToDatabase());
 
-        return view;
+        // Button Cancel
+        btnCancel.setOnClickListener(v -> {
+            Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     private void openImagePicker() {
@@ -81,7 +99,7 @@ public class AddBookFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.getData();
@@ -89,13 +107,12 @@ public class AddBookFragment extends Fragment {
         }
     }
 
-    // Saves Book to DB.
     private void addBookToDatabase() {
-        SharedPreferences prefs = requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         String userId = prefs.getString("userId", "");
 
         if (userId.isEmpty()) {
-            Toast.makeText(requireContext(), "User ID not found!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User ID not found!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -109,9 +126,7 @@ public class AddBookFragment extends Fragment {
         String borrowedDate = etBorrowedDate.getText().toString().trim();
         String selectedStatus = spinnerStatus.getSelectedItem().toString();
 
-        //get image path
         String imagePath = selectedImageUri != null ? selectedImageUri.toString() : null;
-
 
         int pageNumber;
         try {
@@ -121,27 +136,31 @@ public class AddBookFragment extends Fragment {
         }
 
         if (title.isEmpty() || author.isEmpty() || genre.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all required fields!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please fill in all required fields!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Convert status from String to Enum
         Book.BookStatus bookStatus = Book.BookStatus.valueOf(selectedStatus.toUpperCase().replace(" ", "_"));
 
-        // Get current date for RegisteredDate
         String registeredDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId, borrowedTo, borrowedDate, imagePath);
 
         if (success) {
-            Toast.makeText(requireContext(), "Book added successfully!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Book added successfully!", Toast.LENGTH_LONG).show();
             clearFields();
+
+            // Redirect to AllBooksActivity
+            Intent intent = new Intent(AddBookActivity.this, AllBooksActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+
         } else {
-            Toast.makeText(requireContext(), "Failed to add book", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to add book", Toast.LENGTH_LONG).show();
         }
     }
 
-    // Clearing Book Fields
     private void clearFields() {
         etTitle.setText("");
         etAuthor.setText("");
@@ -152,4 +171,18 @@ public class AddBookFragment extends Fragment {
         etDescription.setText("");
         spinnerStatus.setSelection(0);
     }
+
+    // Go back button
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
