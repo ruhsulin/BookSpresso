@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class HomeFragment extends Fragment {
     private View rootView;
 
@@ -44,6 +46,12 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateStatistics();
+
+        // Show Floating ADD Button in Home.
+        FloatingActionButton fab = getActivity().findViewById(R.id.fabAddBook);
+        if (fab != null) {
+            fab.show();
+        }
     }
 
     private void openBookList(String filterType) {

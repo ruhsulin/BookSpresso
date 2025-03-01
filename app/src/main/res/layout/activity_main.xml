@@ -22,16 +22,30 @@
         android:layout_below="@id/toolbar"
         android:layout_above="@id/bottom_navigation" />
 
+    <!-- Floating Button: Add Book -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        android:backgroundTint="@color/green_700"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="72dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/bottom_navigation"/>
+
     <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/green_900"
-        app:itemTextColor="@color/active_nav_color"
+        app:menu="@menu/bottom_menu"
+        app:labelVisibilityMode="labeled"
+        app:itemIconSize="25dp"
+        app:itemTextColor="@color/app_background"
         app:itemIconTint="@color/active_nav_color"
-        app:itemIconSize="35dp"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_menu" />
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>
