@@ -46,6 +46,9 @@ public class AllBooksActivity extends AppCompatActivity {
 
         // Get filter type from intent
         String filterType = getIntent().getStringExtra("FILTER_TYPE");
+        if (filterType == null) {
+            filterType = "ALL";
+        }
 
         // Load books based on filter
         loadBooks(filterType);
@@ -74,6 +77,11 @@ public class AllBooksActivity extends AppCompatActivity {
             Toast.makeText(this, "User ID not found!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (filter == null) {
+            filter = "ALL";
+        }
+
         List<Book> bookList;
 
         switch (filter) {
@@ -87,6 +95,7 @@ public class AllBooksActivity extends AppCompatActivity {
                 bookList = dbHelper.getAllBooksForUser(userId);
                 break;
         }
+
         if (bookList.isEmpty()) {
             Toast.makeText(this, "No books found!", Toast.LENGTH_SHORT).show();
         }
