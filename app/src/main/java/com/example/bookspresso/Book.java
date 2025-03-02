@@ -16,6 +16,7 @@ public class Book implements Serializable {
     private String borrowedTo;
     private String borrowedDate;
     private String imagePath;
+    private boolean favorite;
 
     public enum BookStatus{
         TO_READ,
@@ -76,4 +77,7 @@ public class Book implements Serializable {
     public void setImagePath(String imagePath){
         this.imagePath = imagePath;
     }
+
+    public boolean isFavorite() {return favorite;}
+    public void setFavorite(boolean favorite){this.favorite = favorite;}
 }
