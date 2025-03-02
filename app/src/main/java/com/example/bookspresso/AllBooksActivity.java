@@ -109,6 +109,9 @@ public class AllBooksActivity extends AppCompatActivity {
             Toast.makeText(this, "No books found!", Toast.LENGTH_SHORT).show();
         }
 
+        allBooks.clear();
+        allBooks.addAll(bookList);
+
         updateRecyclerView(bookList);
     }
 
@@ -127,7 +130,7 @@ public class AllBooksActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(query)) {
             // Show all books if query is empty
-            bookAdapter = new BookAdapter(this, allBooks);
+            updateRecyclerView(allBooks);
         } else {
             // Filter books by title or author
             List<Book> filteredBooks = new ArrayList<>();
