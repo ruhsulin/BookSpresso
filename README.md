@@ -1,11 +1,11 @@
 <h1 align="center">📚☕ BookSpresso</h1>
 
 <h3 align="center">📖 Your personal book tracker and manager ☕</h3>
-
+<!--
 <p align="center">
   <img src="https://your-image-link-here.png" width="150" alt="BookSpresso Logo">
 </p>
-
+-->
 <p align="center">
   <img src="https://img.shields.io/badge/Android-Java-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Database-SQLite-blue?style=for-the-badge">
@@ -24,9 +24,9 @@
 - **UI**: XML + Material Design 🎨
 
 ## 📷 Screenshots
-| Home Page | Book Details | Add Book |
-|-----------|-------------|------------|
-| <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/Home.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/BookDetails.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/AddBook.png?raw=true" width="200"> |
+| Register | Home Page | Book Details | Add Book |
+|----------|-----------|--------------|----------|
+|<img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/Register.png?raw=true" width="200">| <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/Home.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/BookDetails.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/AddBook.png?raw=true" width="200"> |
 
 ## 📥 Installation
 ```sh
