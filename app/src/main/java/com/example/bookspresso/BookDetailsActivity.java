@@ -44,7 +44,12 @@ public class BookDetailsActivity extends AppCompatActivity {
             updateBookDetailsUI();
         }
 
-        // Open EditBookActivity
+        // Favorites Book
+        ImageView btnFavorite = findViewById(R.id.btnFavorite);
+        updateFavoriteIcon();
+        btnFavorite.setOnClickListener(v -> toggleFavorite());
+
+        // Edit Book
         ImageView btnEdit = findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(BookDetailsActivity.this, EditBookActivity.class);
@@ -178,5 +183,33 @@ public class BookDetailsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Toggle for Favorite Book button
+    private void toggleFavorite() {
+        if (book == null) return;
+
+        boolean isFavorite = dbHelper.isBookFavorite(book.getId());
+
+        if (isFavorite) {
+            dbHelper.removeBookFromFavorites(book.getId());
+            Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+        } else {
+            dbHelper.addBookToFavorites(book.getId());
+            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+        }
+
+        updateFavoriteIcon();
+    }
+
+    // Update Favorite Icon - fill - unfilled
+    private void updateFavoriteIcon() {
+        ImageView btnFavorite = findViewById(R.id.btnFavorite);
+
+        if (dbHelper.isBookFavorite(book.getId())) {
+            btnFavorite.setImageResource(R.drawable.ic_favorite_full); // Full heart
+        } else {
+            btnFavorite.setImageResource(R.drawable.ic_favorite); // Empty heart
+        }
     }
 }

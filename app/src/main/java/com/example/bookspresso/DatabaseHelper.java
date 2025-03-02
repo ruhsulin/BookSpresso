@@ -17,7 +17,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final String Table_Books = "Books";
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "BookSpressoDB", null, 6);
+        super(context, "BookSpressoDB", null, 7);
     }
 
     @Override
@@ -36,13 +36,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "UserId Text," + //10
                 "BorrowedTo Text," + //11
                 "BorrowedDate Text," + //12
-                "ImagePath Text)"); //13
+                "ImagePath Text," + //13
+                "isFavorite Integer default 0)"); //14
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        if (oldVersion < 6) {
-            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN ImagePath TEXT");
+        if (oldVersion < 7) {
+            sqLiteDatabase.execSQL("ALTER TABLE Books ADD COLUMN IsFavorite INTEGER DEFAULT 0");
         }
     }
 
@@ -116,6 +117,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int deletedRows = db.delete("Books", "Id = ?", new String[]{String.valueOf(bookId)});
         db.close();
         return deletedRows > 0;
+    }
+
+    // Add to favorites
+    public boolean addBookToFavorites(int bookId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IsFavorite", 1);
+
+        int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(bookId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    // Remove from favorites
+    public boolean removeBookFromFavorites(int bookId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IsFavorite", 0);
+
+        int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(bookId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    // is book == favorite?
+    public boolean isBookFavorite(int bookId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        boolean isFavorite = false;
+
+        Cursor cursor = db.rawQuery("SELECT isFavorite FROM Books WHERE Id = ?", new String[]{String.valueOf(bookId)});
+        if (cursor.moveToFirst()) {
+            isFavorite = cursor.getInt(0) == 1;
+        }
+
+        cursor.close();
+        db.close();
+        return isFavorite;
+    }
+
+    // update favorite books
+    public void updateFavoriteStatus(int bookId, boolean favorite) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("isFavorite", favorite ? 1 : 0);
+
+        db.update("Books", values, "Id = ?", new String[]{String.valueOf(bookId)});
+        db.close();
+    }
+
+    // Get all favorite books
+    public List<Book> getFavoriteBooksForUser(String userId) {
+        List<Book> bookList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM Books WHERE UserId = ? AND IsFavorite = ?", new String[]{userId, "1"});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setId(cursor.getInt(0));
+                book.setTitle(cursor.getString(1));
+                book.setAuthor(cursor.getString(2));
+                book.setGenre(cursor.getString(3));
+                book.setPublishedYear(cursor.getInt(4));
+                book.setISBN(cursor.getString(5));
+                book.setPageNumber(cursor.getInt(6));
+                book.setDescription(cursor.getString(7));
+                book.setStatus(Book.BookStatus.valueOf(cursor.getString(8).toUpperCase()));
+                book.setRegisteredDate(cursor.getString(9));
+                book.setImagePath(cursor.getString(13));
+                book.setFavorite(cursor.getInt(14) == 1);
+
+                bookList.add(book);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return bookList;
     }
 
     // get books where status == ALL
