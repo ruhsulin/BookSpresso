@@ -24,9 +24,9 @@
 - **UI**: XML + Material Design 🎨
 
 ## 📷 Screenshots
-| Home Page | Book Details | Statistics |
+| Home Page | Book Details | Add Book |
 |-----------|-------------|------------|
-| <img src="![image](https://github.com/user-attachments/assets/31a199a7-ba15-49ff-984f-640c419f77a5)" width="200"> | <img src="your-image-link.png" width="200"> | <img src="your-image-link.png" width="200"> |
+| <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/Home.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/BookDetails.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/AddBook.png?raw=true" width="200"> |
 
 ## 📥 Installation
 ```sh
