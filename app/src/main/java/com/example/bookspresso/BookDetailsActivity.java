@@ -1,6 +1,7 @@
 package com.example.bookspresso;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,16 +13,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 public class BookDetailsActivity extends AppCompatActivity {
     private Book book;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
+
+        dbHelper = new DatabaseHelper(this);
 
         // Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -46,6 +51,10 @@ public class BookDetailsActivity extends AppCompatActivity {
             intent.putExtra("editBook", book);
             startActivityForResult(intent, 1);
         });
+
+        // Delete Book
+        ImageView btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(view -> showDeleteConfirmationDialog());
     }
 
     // Updates UI with the book details
@@ -134,6 +143,30 @@ public class BookDetailsActivity extends AppCompatActivity {
             book = updatedBook;
             updateBookDetailsUI();
             intent.removeExtra("updatedBook");
+        }
+    }
+
+    // Delete Book Confirmation
+    private void showDeleteConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Book")
+                .setMessage("Are you sure you want to delete this book?")
+                .setPositiveButton("Yes", (dialog, which) -> deleteBook())
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void deleteBook() {
+        if (book != null) {
+            boolean isDeleted = dbHelper.deleteBook(book.getId());
+
+            if (isDeleted) {
+                Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK); // Notify the parent activity
+                finish(); // Close the activity
+            } else {
+                Toast.makeText(this, "Failed to delete book", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
