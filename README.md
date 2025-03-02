@@ -26,7 +26,7 @@
 ## 📷 Screenshots
 | Home Page | Book Details | Statistics |
 |-----------|-------------|------------|
-| <img src="your-image-link.png" width="200"> | <img src="your-image-link.png" width="200"> | <img src="your-image-link.png" width="200"> |
+| <img src="![image](https://github.com/user-attachments/assets/31a199a7-ba15-49ff-984f-640c419f77a5)" width="200"> | <img src="your-image-link.png" width="200"> | <img src="your-image-link.png" width="200"> |
 
 ## 📥 Installation
 ```sh
