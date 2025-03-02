@@ -82,6 +82,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // edit book
+    public boolean updateBook(Book book) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Title", book.getTitle());
+        values.put("Author", book.getAuthor());
+        values.put("Genre", book.getGenre());
+        values.put("PublishedYear", book.getPublishedYear());
+        values.put("ISBN", book.getISBN());
+        values.put("PageNumber", book.getPageNumber());
+        values.put("Description", book.getDescription());
+        values.put("Status", book.getStatus().name());
+        // Handle borrowed fields properly
+        if (book.getStatus() == Book.BookStatus.BORROWED) {
+            values.put("BorrowedTo", book.getBorrowedTo() != null ? book.getBorrowedTo() : "");
+            values.put("BorrowedDate", book.getBorrowedDate() != null ? book.getBorrowedDate() : "");
+        } else {
+            values.put("BorrowedTo", "");  // Clear value if not borrowed
+            values.put("BorrowedDate", "");
+        }
+
+        int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(book.getId())});
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+    // delete book
+    public boolean deleteBook(int bookId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRows = db.delete("Books", "Id = ?", new String[]{String.valueOf(bookId)});
+        db.close();
+        return deletedRows > 0;
+    }
+
+    // get books where status == ALL
     public List<Book> getAllBooksForUser(String userId) {
         List<Book> bookList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -187,34 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return bookList;
     }
 
-    // edit book
-    public boolean updateBook(Book book) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("Title", book.getTitle());
-        values.put("Author", book.getAuthor());
-        values.put("Genre", book.getGenre());
-        values.put("PublishedYear", book.getPublishedYear());
-        values.put("ISBN", book.getISBN());
-        values.put("PageNumber", book.getPageNumber());
-        values.put("Description", book.getDescription());
-        values.put("Status", book.getStatus().name());
-        // Handle borrowed fields properly
-        if (book.getStatus() == Book.BookStatus.BORROWED) {
-            values.put("BorrowedTo", book.getBorrowedTo() != null ? book.getBorrowedTo() : "");
-            values.put("BorrowedDate", book.getBorrowedDate() != null ? book.getBorrowedDate() : "");
-        } else {
-            values.put("BorrowedTo", "");  // Clear value if not borrowed
-            values.put("BorrowedDate", "");
-        }
-
-        int rowsAffected = db.update("Books", values, "Id = ?", new String[]{String.valueOf(book.getId())});
-        db.close();
-
-        return rowsAffected > 0;
-    }
-
+    // Book Statistics
     // get number of all books.
     public int getTotalBooksCount(String userId){
         SQLiteDatabase db = this.getReadableDatabase();

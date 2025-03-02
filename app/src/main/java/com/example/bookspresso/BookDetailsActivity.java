@@ -162,8 +162,8 @@ public class BookDetailsActivity extends AppCompatActivity {
 
             if (isDeleted) {
                 Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK); // Notify the parent activity
-                finish(); // Close the activity
+                setResult(RESULT_OK);
+                finish();
             } else {
                 Toast.makeText(this, "Failed to delete book", Toast.LENGTH_SHORT).show();
             }
