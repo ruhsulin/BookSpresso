@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,12 +85,12 @@ public class BookDetailsActivity extends AppCompatActivity {
         // Load book image using Glide
         if (book.getImagePath() != null && !book.getImagePath().isEmpty()) {
             Glide.with(this)
-                    .load(book.getImagePath())
-                    .placeholder(R.drawable.rounded_corner_image)
-                    .error(R.drawable.ic_image)
+                    .load(Uri.parse(book.getImagePath()))
+                    .placeholder(R.drawable.normal_book_image)
+                    .error(R.drawable.error_book_image)
                     .into(ivBookImage);
         } else {
-            ivBookImage.setImageResource(R.drawable.default_book_image);
+            ivBookImage.setImageResource(R.drawable.normal_book_image);
         }
 
         // Set book status
@@ -112,7 +111,8 @@ public class BookDetailsActivity extends AppCompatActivity {
             tvBorrowedBy.setText("Borrowed by " + borrowedTo + " on " + borrowedDate);
             tvBorrowedBy.setVisibility(View.VISIBLE);
             tvStatus.setVisibility(View.GONE);
-        } else {
+        }
+        else {
             tvStatus.setText(getString(R.string.status_format, book.getStatus().name()));
             tvStatus.setVisibility(View.VISIBLE);
             tvBorrowedBy.setVisibility(View.GONE);

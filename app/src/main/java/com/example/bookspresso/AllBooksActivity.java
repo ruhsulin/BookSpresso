@@ -33,19 +33,18 @@ public class AllBooksActivity extends AppCompatActivity {
         // Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("All Book");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back button
         }
 
+        // Initializing RecyclerView and Search view.
         recyclerView = findViewById(R.id.recyclerView);
         SearchView searchView = findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        dbHelper = new DatabaseHelper(this);
-
         // Get filter type from intent
+        dbHelper = new DatabaseHelper(this);
         String filterType = getIntent().getStringExtra("FILTER_TYPE");
         if (filterType == null) {
             filterType = "ALL";
