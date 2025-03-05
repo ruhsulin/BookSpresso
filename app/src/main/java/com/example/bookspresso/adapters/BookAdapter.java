@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bookspresso.R;
+import com.example.bookspresso.activities.BookDetailsActivity;
+import com.example.bookspresso.models.Book;
 
 import java.util.List;
 
@@ -52,7 +55,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                     .load(Uri.parse(book.getImagePath()))
                     .into(holder.ivBookImage);
         } else {
-            holder.ivBookImage.setImageResource(R.drawable.default_book_image);
+            holder.ivBookImage.setImageResource(R.drawable.img_default_book_image);
         }
 
         // Display Borrowed Info
