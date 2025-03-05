@@ -1,2 +1,4 @@
-package com.example.bookspresso.utils;public class ToastHelper {
+package com.example.bookspresso.utils;
+
+public class ToastHelper {
 }
