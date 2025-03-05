@@ -52,6 +52,8 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register_here">Don\'t have na account? Register here!</string>
 
     <!-- Book Status Enums -->
     <string-array name="book_status_options">
