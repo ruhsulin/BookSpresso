@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bookspresso.adapters.BookAdapter;
+import com.example.bookspresso.R;
+import com.example.bookspresso.database.DatabaseHelper;
+import com.example.bookspresso.models.Book;
 
 import java.util.ArrayList;
 import java.util.List;

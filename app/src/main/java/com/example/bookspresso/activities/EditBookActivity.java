@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.bookspresso.R;
+import com.example.bookspresso.database.DatabaseHelper;
+import com.example.bookspresso.models.Book;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

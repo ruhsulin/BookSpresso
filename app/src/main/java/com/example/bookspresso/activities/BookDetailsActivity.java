@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.bookspresso.R;
+import com.example.bookspresso.database.DatabaseHelper;
+import com.example.bookspresso.models.Book;
 
 public class BookDetailsActivity extends AppCompatActivity {
     private Book book;
@@ -86,11 +89,11 @@ public class BookDetailsActivity extends AppCompatActivity {
         if (book.getImagePath() != null && !book.getImagePath().isEmpty()) {
             Glide.with(this)
                     .load(Uri.parse(book.getImagePath()))
-                    .placeholder(R.drawable.normal_book_image)
-                    .error(R.drawable.error_book_image)
+                    .placeholder(R.drawable.img_normal_book_image)
+                    .error(R.drawable.img_error_book_image)
                     .into(ivBookImage);
         } else {
-            ivBookImage.setImageResource(R.drawable.normal_book_image);
+            ivBookImage.setImageResource(R.drawable.img_normal_book_image);
         }
 
         // Set book status
