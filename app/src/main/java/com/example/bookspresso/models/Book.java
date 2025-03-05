@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.models;
 
 import java.io.Serializable;
 
