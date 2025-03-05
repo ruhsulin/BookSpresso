@@ -1,6 +1,4 @@
-package com.example.bookspresso;
-
-import static androidx.core.content.ContentProviderCompat.requireContext;
+package com.example.bookspresso.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.bookspresso.fragments.GoalFragment;
+import com.example.bookspresso.R;
+import com.example.bookspresso.fragments.FavoritesFragment;
+import com.example.bookspresso.fragments.HomeFragment;
+import com.example.bookspresso.models.Book;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.util.Log;

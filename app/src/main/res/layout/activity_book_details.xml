@@ -163,7 +163,7 @@
         <FrameLayout
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/btn_add_book_ripple_effect"
+            android:background="@drawable/btn_ripple_effect"
             android:backgroundTint="@color/totalBooks"
             android:layout_marginEnd="10dp">
 
@@ -182,7 +182,7 @@
         <FrameLayout
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/btn_add_book_ripple_effect"
+            android:background="@drawable/btn_ripple_effect"
             android:backgroundTint="@color/green_700"
             android:layout_marginEnd="10dp">
 
@@ -201,7 +201,7 @@
         <FrameLayout
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/btn_add_book_ripple_effect"
+            android:background="@drawable/btn_ripple_effect"
             android:backgroundTint="@color/btn_delete"
             android:layout_marginEnd="10dp">
 

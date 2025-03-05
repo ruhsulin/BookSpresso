@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bookspresso.adapters.BookAdapter;
+import com.example.bookspresso.R;
+import com.example.bookspresso.database.DatabaseHelper;
+import com.example.bookspresso.models.Book;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

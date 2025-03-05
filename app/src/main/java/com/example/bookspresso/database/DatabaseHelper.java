@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,8 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.common.collect.Table;
+import com.example.bookspresso.models.Book;
 
 import java.util.ArrayList;
 import java.util.List;

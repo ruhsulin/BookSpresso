@@ -10,6 +10,6 @@
     <item
         android:width="30dp"
         android:height="10dp"
-        android:drawable="@drawable/arrow_green_down"
+        android:drawable="@drawable/img_arrow_green_down"
         android:gravity="end|center_vertical"/>
 </layer-list>
