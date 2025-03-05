@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    tools:context=".HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <!-- Daily Reading Goals Section -->
     <LinearLayout
@@ -129,7 +129,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/all_books"
+                android:src="@drawable/img_all_books"
                 android:contentDescription="@string/bookicons"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -186,7 +186,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/read_books"
+                android:src="@drawable/img_read_books"
                 android:contentDescription="@string/bookicons"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -244,7 +244,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/borrowed_books"
+                android:src="@drawable/img_borrowed_books"
                 android:contentDescription="@string/bookicons"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
