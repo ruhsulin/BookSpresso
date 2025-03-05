@@ -1,4 +1,4 @@
-package com.example.bookspresso;
+package com.example.bookspresso.fragments;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bookspresso.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class GoalFragment extends Fragment {
