@@ -9,102 +9,109 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.bookspresso.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.bookspresso.utils.ToastHelper;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends Activity {
     FirebaseAuth auth;
     public ProgressBar progressBar;
-    public EditText etFirstname, etLastname, etEmail, etPassword;
+    public EditText etFirstname, etLastname, etEmail, etPassword, etConfirmPassword;
     public Button btnRegister;
     public TextView tvLoginHere;
 
-    // Initialization
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Initializing variables
         auth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
         etFirstname = findViewById(R.id.etFirstname);
         etLastname = findViewById(R.id.etLastName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
         tvLoginHere = findViewById(R.id.tvAlreadyHaveAccount);
 
-        tvLoginHere.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+        // click listeners
+        // login
+        tvLoginHere.setOnClickListener(view -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
 
-        // Register user to Firebase
-        btnRegister.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-
-                String firstname, lastname, email, password;
-                firstname = etFirstname.getText().toString();
-                lastname = etLastname.getText().toString();
-                email = etEmail.getText().toString();
-                password = etPassword.getText().toString();
-
-                if (TextUtils.isEmpty(firstname)) {
-                    showToast("Enter first name!");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(lastname)) {
-                    showToast("Enter last name!");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(email)) {
-                    showToast("Enter email!");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    showToast("Enter password!");
-                    return;
-                }
-
-                // Register user in Firebase
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-
-                                if (task.isSuccessful()) {
-                                    showToast("Account Created Successfully!");
-                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    showToast("Account Creation Failed!");
-                                }
-                            }
-                        });
-            }
-        });
-        }
-
-        private void showToast(String message){
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        }
+        // register
+        btnRegister.setOnClickListener(view -> registerUser());
     }
 
+    //registering user on Firebase
+    private void registerUser() {
+        progressBar.setVisibility(View.VISIBLE);
+
+        String firstname = etFirstname.getText().toString().trim();
+        String lastname = etLastname.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String confirmPassword = etConfirmPassword.getText().toString().trim();
+
+        if (!validateInput(firstname, lastname, email, password, confirmPassword)) {
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
+                    if (task.isSuccessful()) {
+                        ToastHelper.showToast(RegisterActivity.this, "Account Created Successfully!");
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        ToastHelper.showToast(RegisterActivity.this, "Account Creation Failed: " + task.getException().getMessage());
+                    }
+                });
+    }
+
+    // validating inputs
+    private boolean validateInput(String firstname, String lastname, String email, String password, String confirmPassword) {
+        if (TextUtils.isEmpty(firstname)) {
+            ToastHelper.showToast(this, "Enter first name!");
+            return false;
+        }
+        if (TextUtils.isEmpty(lastname)) {
+            ToastHelper.showToast(this, "Enter last name!");
+            return false;
+        }
+        if (TextUtils.isEmpty(email)) {
+            ToastHelper.showToast(this, "Enter email!");
+            return false;
+        }
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            ToastHelper.showToast(this, "Enter a valid email address!");
+            return false;
+        }
+        if (TextUtils.isEmpty(password)) {
+            ToastHelper.showToast(this, "Enter password!");
+            return false;
+        }
+        if (password.length() < 6) {
+            ToastHelper.showToast(this, "Password must be at least 6 characters!");
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            ToastHelper.showToast(this, "Passwords do not match!");
+            return false;
+        }
+        return true;
+    }
+
+    // lifecycle onDestroy()
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        auth = null;  // prevent memory leak
+    }
+}
