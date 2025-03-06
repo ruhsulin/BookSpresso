@@ -19,8 +19,9 @@
 - 🎨 Beautiful and minimal UI
 
 ### 🚧 *But keep in mind…*  
-BookSpresso is still in development! 🏗️ I still have some **cute little bugs** and **features that are waiting to be released!** 🍞👨‍🍳  
-If you run into a bug, don’t worry! Either it will be fixed, or we turn it into a feature. 🤡  
+BookSpresso is still in development! 🏗️ 
+I still have some **cute little bugs** and **features that are waiting to be released!** 🍞👨‍🍳  
+If you run into a bug, don’t worry! Either it will be fixed, or it will be turned into a feature. 🤡  
 
 ## 🛠 Tech Stack
 - **Language**: Java ☕
