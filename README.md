@@ -1,4 +1,4 @@
-<h1 align="center">📚☕ BookSpresso</h1>
+<h1 align="center">📚☕ BookSpresso – (Still brewing... like a good espresso!)  </h1>
 
 <h3 align="center">📖 Your personal book tracker and manager ☕</h3>
 <!--
@@ -18,6 +18,10 @@
 - 📊 Track reading progress with statuses (To Read, Reading, Finished)
 - 🎨 Beautiful and minimal UI
 
+### 🚧 *But keep in mind…*  
+BookSpresso is still in development! 🏗️ I still have some **cute little bugs** and **features that are waiting to be released!** 🍞👨‍🍳  
+If you run into a bug, don’t worry! Either it will be fixed, or we turn it into a feature. 🤡  
+
 ## 🛠 Tech Stack
 - **Language**: Java ☕
 - **Database**: SQLite 🗄️
@@ -27,6 +31,8 @@
 | Register | Home Page | Book Details | Add Book |
 |----------|-----------|--------------|----------|
 |<img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/Register.png?raw=true" width="200">| <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/Home.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/BookDetails.png?raw=true" width="200"> | <img src="https://github.com/ruhsulin/BookSpresso/blob/main/images/AddBook.png?raw=true" width="200"> |
+
+If something looks broken... it probably is! 😅 Enjoy the code, test the app, and if you feel adventurous, contribute with some code! 🚀
 
 ## 📥 Installation
 ```sh
