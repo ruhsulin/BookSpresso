@@ -1,110 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-  >
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Author" />
-
-    <EditText
-        android:id="@+id/etGenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Genre" />
-
-    <EditText
-        android:id="@+id/etPublishedYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Published Year"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/etISBN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ISBN" />
-
-    <EditText
-        android:id="@+id/etPageNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Page Number"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        android:minHeight="100dp" />
-
-        <EditText
-            android:id="@+id/etBorrowedTo"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Borrowed To"
-            android:visibility="gone"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <EditText
-            android:id="@+id/etBorrowedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Borrowed Date (YYYY-MM-DD)"
-            android:visibility="gone"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="30dp">
 
+            <!-- textView: Edit book -->
             <TextView
-                android:id="@+id/etStatus"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textSize="18sp"
-                android:hint="Status: " />
+                android:text="@string/edit_book"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/green_900"
+                android:gravity="center"/>
 
-            <Spinner
-                android:id="@+id/spinnerStatus"
-                android:layout_width="0dp"
+            <!-- horizontal line for edit  book -->
+            <View
+                android:layout_width="110dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center"
+                android:background="@color/green_700"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"/>
+            <!-- Title -->
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:layout_marginStart="10dp"/>
+                android:hint="@string/title"
+                android:inputType="textPersonName"
+                android:importantForAutofill="no" />
+
+            <!-- Author -->
+
+            <!-- Genre -->
+            <EditText
+                android:id="@+id/etAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/author"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/etGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/genre"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords" />
+
+            <!-- Published Year -->
+            <EditText
+                android:id="@+id/etPublishedYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/published_year"
+                android:inputType="number"
+                android:importantForAutofill="no" />
+
+            <!-- ISBN -->
+            <EditText
+                android:id="@+id/etISBN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/isbn"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <!-- Page number -->
+            <EditText
+                android:id="@+id/etPageNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/page_number"
+                android:inputType="number"
+                android:importantForAutofill="no" />
+
+            <!-- Description -->
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                android:minHeight="100dp"
+                android:autofillHints=""
+                android:inputType="textMultiLine" />
+
+            <!-- Borrowed to -->
+            <EditText
+                android:id="@+id/etBorrowedTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/borrowed_to"
+                android:visibility="gone"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
+
+            <!-- Borrowed Date -->
+            <EditText
+                android:id="@+id/etBorrowedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/borrowed_date_yyyy_mm_dd"
+                android:visibility="gone"
+                android:inputType="date" />
+
+            <!-- TextView: Status -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="5dp"
+                    android:layout_weight="1"
+                    tools:ignore="RtlSymmetry" />
+
+                <Spinner
+                    android:id="@+id/spinnerStatus"
+                    android:layout_width="7dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2.5"
+                    android:background="@drawable/spinner_background"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <!-- TextView: Book Image -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/image"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="5dp"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivBookImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/img_default_book_image"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    android:contentDescription="@string/book_image" />
+
+                <Button
+                    android:id="@+id/btnSelectImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_image"
+                    android:textSize="18sp"
+                    android:textColor="@color/app_background"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:drawableStart="@drawable/ic_image"
+                    android:backgroundTint="@color/readBooks"
+                    android:background="@drawable/select_image_rounded"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <!-- Button: Add Book - Cancel -->
+            <LinearLayout
+                android:id="@+id/ll_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/btn_ripple_effect"
+                    android:backgroundTint="@color/green_900"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/save_changes"
+                    android:textColor="@color/app_background"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="15dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/btn_ripple_effect"
+                    android:backgroundTint="@color/btn_delete"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/cancel"
+                    android:textColor="@color/app_background"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
+
         </LinearLayout>
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"
-        android:layout_marginTop="10dp" />
-</LinearLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
