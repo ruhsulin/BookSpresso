@@ -187,5 +187,4 @@ public class AddBookActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
