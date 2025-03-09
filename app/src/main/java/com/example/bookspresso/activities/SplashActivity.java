@@ -1,5 +1,8 @@
-package com.example.bookspresso;
+package com.example.bookspresso.activities;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,10 +10,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.bookspresso.R;
 
-import com.example.bookspresso.activities.MainActivity;
-
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 2000;
 
@@ -20,6 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         ImageView logo = findViewById(R.id.imageView);
+
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         logo.startAnimation(fadeIn);
 
@@ -29,5 +32,4 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }, SPLASH_TIME_OUT);
     }
-
 }
