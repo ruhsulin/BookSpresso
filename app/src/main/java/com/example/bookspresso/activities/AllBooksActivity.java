@@ -39,7 +39,7 @@ public class AllBooksActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("All Book");
+            getSupportActionBar().setTitle("Finished Books");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back button
         }
 

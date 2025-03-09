@@ -56,6 +56,7 @@
     <string name="register_here">Don\'t have na account? Register here!</string>
     <string name="save_changes">Save Changes</string>
     <string name="edit_book">Edit Book</string>
+    <string name="logo_image">Logo image</string>
 
     <!-- Book Status Enums -->
     <string-array name="book_status_options">

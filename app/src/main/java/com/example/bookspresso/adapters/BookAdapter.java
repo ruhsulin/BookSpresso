@@ -55,7 +55,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                     .load(Uri.parse(book.getImagePath()))
                     .into(holder.ivBookImage);
         } else {
-            holder.ivBookImage.setImageResource(R.drawable.img_default_book_image);
+            holder.ivBookImage.setImageResource(R.drawable.rounded_corner_image);
         }
 
         // Display Borrowed Info
