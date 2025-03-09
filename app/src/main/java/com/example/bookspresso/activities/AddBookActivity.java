@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.bookspresso.R;
 import com.example.bookspresso.database.DatabaseHelper;
 import com.example.bookspresso.models.Book;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -150,18 +152,22 @@ public class AddBookActivity extends AppCompatActivity {
         boolean success = databaseHelper.insertBook(title, author, genre, publishedYear, isbn, pageNumber, description, bookStatus.name(), registeredDate, userId, borrowedTo, borrowedDate, imagePath);
 
         if (success) {
-            Toast.makeText(this, "Book added successfully!", Toast.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "Book added successfully!", Snackbar.LENGTH_LONG)
+                    .setAction("View", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Hap AllBooksActivity kur klikon "View"
+                            Intent intent = new Intent(AddBookActivity.this, AllBooksActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).show();
             clearFields();
-
-            // Redirect to AllBooksActivity
-            Intent intent = new Intent(AddBookActivity.this, AllBooksActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-
         } else {
-            Toast.makeText(this, "Failed to add book", Toast.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "Failed to add book", Snackbar.LENGTH_LONG).show();
         }
+
     }
 
     private void clearFields() {
