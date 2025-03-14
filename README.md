@@ -16,6 +16,7 @@
 - 📖 Add, edit, and delete books
 - 🔍 Search books by title or author
 - 📊 Track reading progress with statuses (To Read, Reading, Finished)
+- ♥ Mark books as favorites
 - 🎨 Beautiful and minimal UI
 
 ### 🚧 *But keep in mind…*  
