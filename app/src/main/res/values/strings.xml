@@ -57,6 +57,10 @@
     <string name="save_changes">Save Changes</string>
     <string name="edit_book">Edit Book</string>
     <string name="logo_image">Logo image</string>
+    <string name="welcome_user">Welcome, User!</string>
+    <string name="_40_completed">40% completed</string>
+    <string name="here_are_your_book_stats">Here are your book stats:</string>
+    <string name="_0">0</string>
 
     <!-- Book Status Enums -->
     <string-array name="book_status_options">
