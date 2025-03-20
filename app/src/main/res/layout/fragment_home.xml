@@ -118,7 +118,7 @@
                     android:id="@+id/tv_totalBooks_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="50"
+                    android:text="0"
                     android:textSize="34sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
@@ -175,7 +175,7 @@
                     android:id="@+id/tv_readbooks_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textSize="34sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
