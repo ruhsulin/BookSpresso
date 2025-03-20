@@ -78,14 +78,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.top_menu, menu);
-        Log.d("Menu", "Menu inflated successfully");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
-            Log.d("Logout", "Logout menu item clicked");
             logout();
             return true;
         }
@@ -122,8 +120,14 @@ public class MainActivity extends AppCompatActivity {
         editor.clear();
         editor.apply();
 
+        SharedPreferences userPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        SharedPreferences.Editor userEditor = userPrefs.edit();
+        userEditor.clear();
+        userEditor.apply();
+
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 }
