@@ -33,6 +33,20 @@ public class HomeFragment extends Fragment {
         CardView cvReadBooks = rootView.findViewById(R.id.cv_read_book);
         CardView cvBorrowedBooks = rootView.findViewById(R.id.cv_borrowed_books);
 
+        // get users' name
+        TextView tvUserName = rootView.findViewById(R.id.tvUserName);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("BookSpresso", Context.MODE_PRIVATE);
+
+        String email = sharedPreferences.getString("Email", "");
+        if (!email.isEmpty()) {
+            String usernamePart = email.split("@")[0];
+
+            String username = usernamePart.substring(0, 1).toUpperCase() + usernamePart.substring(1).toLowerCase();
+
+            tvUserName.setText("Welcome, " + username + "! 📚");
+        }
+
+
         // When clicking "Total Books"
         cvTotalBooks.setOnClickListener(v -> openBookList("ALL"));
 

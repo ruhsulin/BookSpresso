@@ -29,7 +29,8 @@
             android:text="@string/reading_goal"
             android:textSize="18sp"
             android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_gravity="start"/>
 
         <ProgressBar
             android:id="@+id/pb_reading_goals"
@@ -44,28 +45,44 @@
             android:id="@+id/tv_reading_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="40% completed"
+            android:text="@string/_40_completed"
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_gravity="end"
             android:paddingTop="4dp"/>
     </LinearLayout>
 
-    <!-- Section Title: Your Book Stats -->
+    <!-- User welcome-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUserName"
+        android:text="@string/welcome_user"
+        android:textSize="20sp"
+        android:textColor="@color/green_900"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
+
+    <!-- User Stats sentence -->
     <TextView
         android:id="@+id/tv_book_stats_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Book Stats"
-        android:textSize="30sp"
+        android:text="@string/here_are_your_book_stats"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:fontFamily="@font/rubikscribble_regular"
+        android:fontFamily="@font/poppins_medium"
         android:textColor="@color/green_900"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toTopOf="@id/tvUserName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="start"/>
+
     <!-- horizontal line for add new book -->
     <View
         android:layout_width="150dp"
@@ -76,13 +93,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
     <!-- Total Books Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_total_books"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:cardBackgroundColor="@color/totalBooks"
@@ -90,7 +105,8 @@
         app:layout_constraintTop_toBottomOf="@id/tv_book_stats_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:clickable="true">
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,7 +134,7 @@
                     android:id="@+id/tv_totalBooks_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textSize="34sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
@@ -139,7 +155,6 @@
         android:id="@+id/cv_read_book"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:cardBackgroundColor="@color/readBooks"
@@ -147,7 +162,8 @@
         app:layout_constraintTop_toBottomOf="@id/cv_total_books"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:clickable="true">
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,7 +191,7 @@
                     android:id="@+id/tv_readbooks_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textSize="34sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
@@ -196,7 +212,6 @@
         android:id="@+id/cv_borrowed_books"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:cardBackgroundColor="@color/borrowedBooks"
@@ -233,7 +248,7 @@
                     android:id="@+id/tv_borrowedbooks_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textSize="34sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
